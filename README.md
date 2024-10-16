@@ -7,10 +7,10 @@
 4、项目升级为.Net 8。  
 # 文件结构
 >PPTTimer  
->>|-- OperatePPT 程序UI界面（WPF）  
+>>|-- OperatePPT    程序UI界面（WPF）  
 >>|-- PPTOperateLib PPT操作WPF类库  
->>>|-- CountDown 简化的倒计时模块  
->>>|-- Play      PPT播放控制模块  
+>>>|-- CountDown    简化的倒计时模块  
+>>>|-- Play         PPT播放控制模块  
 
 
 # 【以下为原版本程序说明】
