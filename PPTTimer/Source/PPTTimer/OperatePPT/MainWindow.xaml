@@ -1,0 +1,19 @@
+﻿<Window x:Class="OperatePPT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OperatePPT"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="button" Content="播放PPT并启动计时器" HorizontalAlignment="Left" Margin="37,314,0,0" VerticalAlignment="Top" Height="57" Width="156" Click="Button_Click"/>
+        <TextBox x:Name="tb_FilePath" Margin="146,47,10,0" TextWrapping="Wrap" Text="D:\Document\Desktop\20240924_工作情况汇报PPT\test.pptx" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center"/>
+        <Label x:Name="label" Content="PPT文件路径" Margin="37,47,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Width="89"/>
+        <Label x:Name="label1" Content="倒计时时长(s)" HorizontalAlignment="Left" Margin="37,102,0,0" VerticalAlignment="Top" Width="89" HorizontalContentAlignment="Right"/>
+        <Label x:Name="label2" Content="提醒时长(s)" HorizontalAlignment="Left" Margin="37,147,0,0" VerticalAlignment="Top" Width="89" HorizontalContentAlignment="Right"/>
+        <TextBox x:Name="tb_CountDownSeconds" HorizontalAlignment="Left" Margin="146,102,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="120" Height="25" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="tb_WarningSeconds" HorizontalAlignment="Left" Margin="146,147,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="120" Height="25" VerticalContentAlignment="Center"/>
+
+    </Grid>
+</Window>
