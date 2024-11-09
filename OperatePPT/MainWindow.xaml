@@ -7,13 +7,27 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="button" Content="播放PPT并启动计时器" HorizontalAlignment="Left" Margin="37,314,0,0" VerticalAlignment="Top" Height="57" Width="156" Click="Button_Click"/>
-        <TextBox x:Name="tb_FilePath" Margin="146,47,10,0" TextWrapping="Wrap" Text="D:\Document\Desktop\20240924_工作情况汇报PPT\test.pptx" VerticalAlignment="Top" Height="25" VerticalContentAlignment="Center"/>
-        <Label x:Name="label" Content="PPT文件路径" Margin="37,47,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Width="89"/>
-        <Label x:Name="label1" Content="倒计时时长(s)" HorizontalAlignment="Left" Margin="37,102,0,0" VerticalAlignment="Top" Width="89" HorizontalContentAlignment="Right"/>
-        <Label x:Name="label2" Content="提醒时长(s)" HorizontalAlignment="Left" Margin="37,147,0,0" VerticalAlignment="Top" Width="89" HorizontalContentAlignment="Right"/>
-        <TextBox x:Name="tb_CountDownSeconds" HorizontalAlignment="Left" Margin="146,102,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="120" Height="25" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="tb_WarningSeconds" HorizontalAlignment="Left" Margin="146,147,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="120" Height="25" VerticalContentAlignment="Center"/>
+        <Button x:Name="button" Content="播放PPT并启动计时器" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Height="57" Width="156" Click="Button_Click"/>
+        <GroupBox x:Name="groupBox" Header="主要参数定" Margin="10,10,400,274">
+            <Grid>
+                <TextBox x:Name="tb_FilePath" Margin="119,10,10,0" TextWrapping="Wrap" Text="D:\Document\Desktop\20240924_工作情况汇报PPT\test.pptx" VerticalAlignment="Top" Height="50"/>
+                <Label x:Name="label" Content="PPT文件夹路径" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Width="104"/>
+                <Label x:Name="label1" Content="倒计时时长(s)" HorizontalAlignment="Left" Margin="25,65,0,0" VerticalAlignment="Top" Width="89" HorizontalContentAlignment="Right"/>
+                <Label x:Name="label2" Content="提醒时长(s)" HorizontalAlignment="Left" Margin="25,95,0,0" VerticalAlignment="Top" Width="89" HorizontalContentAlignment="Right"/>
+                <TextBox x:Name="tb_CountDownSeconds" HorizontalAlignment="Left" Margin="119,65,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="89" Height="25" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="tb_WarningSeconds" HorizontalAlignment="Left" Margin="119,95,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="89" Height="25" VerticalContentAlignment="Center"/>
+                <Button x:Name="button1" Content="设定PPT文件夹路径" HorizontalAlignment="Left" Margin="213,65,0,0" VerticalAlignment="Top" Height="55" Width="155"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox1" Header="PPT播放列表" Margin="405,10,10,10">
+            <DataGrid x:Name="dataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="序号"/>
+                    <DataGridTextColumn Header="PPT文件名"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </GroupBox>
 
     </Grid>
 </Window>
