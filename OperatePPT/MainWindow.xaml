@@ -4,26 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OperatePPT"
+        xmlns:localFunctions="clr-namespace:OperatePPT.Functions"
+        xmlns:localViews="clr-namespace:Infrastructure.Controls.WPFControls;assembly=Infrastructure.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <localViews:DataGridIndexConverter x:Key="dgRowToIndexConverter"/>
+            <localFunctions:DGRowCov x:Key="dgRowToFileNameCov"/>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        <Button x:Name="button" Content="播放PPT并启动计时器" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Height="57" Width="156" Click="Button_Click"/>
-        <GroupBox x:Name="groupBox" Header="主要参数定" Margin="10,10,400,274">
+        <Button x:Name="btn_Play" Content="播放PPT并启动计时器" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Height="57" Width="156" Click="Btn_Play_Click"/>
+        <GroupBox x:Name="groupBox" Header="主要参数定" Margin="10,10,400,0" Height="151" VerticalAlignment="Top">
             <Grid>
-                <TextBox x:Name="tb_FilePath" Margin="119,10,10,0" TextWrapping="Wrap" Text="D:\Document\Desktop\20240924_工作情况汇报PPT\test.pptx" VerticalAlignment="Top" Height="50"/>
+                <TextBox x:Name="tb_Path" Margin="119,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" IsReadOnly="True" Background="#FFF0F0F0"/>
                 <Label x:Name="label" Content="PPT文件夹路径" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Width="104"/>
                 <Label x:Name="label1" Content="倒计时时长(s)" HorizontalAlignment="Left" Margin="25,65,0,0" VerticalAlignment="Top" Width="89" HorizontalContentAlignment="Right"/>
                 <Label x:Name="label2" Content="提醒时长(s)" HorizontalAlignment="Left" Margin="25,95,0,0" VerticalAlignment="Top" Width="89" HorizontalContentAlignment="Right"/>
                 <TextBox x:Name="tb_CountDownSeconds" HorizontalAlignment="Left" Margin="119,65,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="89" Height="25" VerticalContentAlignment="Center"/>
                 <TextBox x:Name="tb_WarningSeconds" HorizontalAlignment="Left" Margin="119,95,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="89" Height="25" VerticalContentAlignment="Center"/>
-                <Button x:Name="button1" Content="设定PPT文件夹路径" HorizontalAlignment="Left" Margin="213,65,0,0" VerticalAlignment="Top" Height="55" Width="155"/>
+                <Button x:Name="btn_SetFolder" Content="设定PPT文件夹路径" Margin="213,65,10,0" VerticalAlignment="Top" Height="55" Click="Btn_SetFolder_Click"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="groupBox1" Header="PPT播放列表" Margin="405,10,10,10">
-            <DataGrid x:Name="dataGrid" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid x:Name="dataGrid" ItemsSource="{Binding DGItems}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="序号"/>
-                    <DataGridTextColumn Header="PPT文件名"/>
+                    <DataGridTextColumn Header="序号"
+                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource dgRowToIndexConverter}}"/>
+                    <DataGridTextColumn Header="PPT文件名"
+                                        Binding="{Binding Converter={StaticResource dgRowToFileNameCov}}"/>
                 </DataGrid.Columns>
 
             </DataGrid>

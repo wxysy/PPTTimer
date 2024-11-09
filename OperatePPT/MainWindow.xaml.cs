@@ -1,6 +1,9 @@
 ﻿
+using Infrastructure.Files.FileCommon;
 using PPTOperateLib.CountDown;
 using PPTOperateLib.Play;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,12 +23,61 @@ namespace OperatePPT
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region 属性和字段
+        List<string> filePaths = [];
+        public ObservableCollection<string> DGItems { get; set; } = [];
+        #endregion
+
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SetParasToInitialState()
+        {
+            filePaths = [];
+            DGItems = [];
+        }
+
+        private void Btn_SetFolder_Click(object sender, RoutedEventArgs e)
+        {
+            SetParasToInitialState();
+            var folderPath = MyFilePath.SelectFolderPath(null);
+            if (!string.IsNullOrEmpty(folderPath))
+            {
+                tb_Path.Text = folderPath;
+                filePaths = MyFilePath.GetFilePathInSelectedFolder(null, folderPath);
+                foreach (var item in filePaths)
+                {
+                    DGItems.Add(item);
+                }
+            }
+            else
+            { }
+        }
+
+        private void Btn_Play_Click(object sender, RoutedEventArgs e)
+        {
+            var selectPath = dataGrid.SelectedItem as string;
+            if (File.Exists(selectPath))
+                PlayPPT(selectPath);
+            //Test();           
+        }
+
+        private void Test()
+        {
+            var testPath = "D:\\Document\\Desktop\\20240924_工作情况汇报PPT\\test.pptx";
+            if (filePaths.Count == 0)
+            {
+                filePaths.Add(testPath);
+                PlayPPT(filePaths[0]);
+            }
+            else
+            { }
+        }
+
+        private void PlayPPT(string pptPath)
         {
             //《C# 使MessageBox.Show弹出框保持最前》
             //https://blog.csdn.net/qq_41184334/article/details/138279986
@@ -48,7 +100,7 @@ namespace OperatePPT
                 var isPPTRunning = pptPlay.IsPPTOpened;
                 if (isPPTRunning) //反正没有这个判断就失去焦点
                 {
-                    
+
                     var isInSlideShowNow = pptPlay.IsInSlideShowMode;
                     if (isInSlideShow != isInSlideShowNow)
                     {
@@ -69,8 +121,8 @@ namespace OperatePPT
             };
             timerWindow.Show();
 
-            var filePath = tb_FilePath.Text;
-            pptPlay.PPTOpen(filePath);
+            pptPlay.PPTOpen(pptPath);
         }
+
     }
 }

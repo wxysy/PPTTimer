@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Infrastructure.Controls\Infrastructure.Controls.csproj" />
+    <ProjectReference Include="..\Infrastructure.Files\Infrastructure.Files.csproj" />
     <ProjectReference Include="..\PPTOperateLib\PPTOperateLib.csproj" />
   </ItemGroup>
 
