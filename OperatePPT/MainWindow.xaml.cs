@@ -36,8 +36,8 @@ namespace OperatePPT
 
         private void SetParasToInitialState()
         {
-            filePaths = [];
-            DGItems = [];
+            filePaths.Clear();
+            DGItems.Clear();
         }
 
         private void Btn_SetFolder_Click(object sender, RoutedEventArgs e)
