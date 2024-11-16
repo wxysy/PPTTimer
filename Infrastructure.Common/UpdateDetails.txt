@@ -1,0 +1,10 @@
+﻿更新详情
+[<版本号>--<详情>]
+1.1.0.0--实现基本功能
+1.1.1.0--NotifyPropertyChangedMVVM.cs更新，展示了SetProperty方法的用法。
+1.2.0.0--增加开机自启动类AutoStart
+         |--在指定位置创建快捷方式方法CreateShortcut
+         |--在桌面创建快捷方式方法SetDesktopQuick
+1.2.1.0--更新IoC模块
+1.3.0.0--新增并行计算处理模块ParallelHandler
+1.3.1.0--MyCommandAsync新增取消后事件CommandCancelledEvent

@@ -2,7 +2,9 @@
 using Infrastructure.Files.FileCommon;
 using PPTOperateLib.CountDown;
 using PPTOperateLib.Play;
+using ScoreCaculatorLib;
 using System.Collections.ObjectModel;
+using System.Data.Common;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -26,6 +28,7 @@ namespace OperatePPT
         #region 属性和字段
         List<string> filePaths = [];
         public ObservableCollection<string> DGItems { get; set; } = [];
+        public ScoreCaculator ScoreCa { get; set; } = new();
         #endregion
 
         public MainWindow()
@@ -123,6 +126,5 @@ namespace OperatePPT
 
             pptPlay.PPTOpen(pptPath);
         }
-
     }
 }

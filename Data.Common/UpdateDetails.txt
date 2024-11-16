@@ -1,0 +1,8 @@
+﻿更新详情
+[<版本号>--<详情>]
+1.0.0.0--实现基本功能
+		|--MyHash
+		|--MySerialize
+		|--MyGZip
+1.1.0.0--增加xml序列化类MyXmlSerialize，即可序列化，也可直接生成xml文件。
+1.1.1.0--完善MyXmlSerialize。

@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        <Button x:Name="btn_Play" Content="播放PPT并启动计时器" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Height="57" Width="156" Click="Btn_Play_Click"/>
+        <Button x:Name="btn_Play" Content="【播放PPT】&#xD;&#xA;并启动计时器" HorizontalAlignment="Left" Margin="229,166,0,0" VerticalAlignment="Top" Height="57" Width="171" Click="Btn_Play_Click" FontSize="16"/>
         <GroupBox x:Name="groupBox" Header="主要参数定" Margin="10,10,400,0" Height="151" VerticalAlignment="Top">
             <Grid>
                 <TextBox x:Name="tb_Path" Margin="119,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" IsReadOnly="True" Background="#FFF0F0F0"/>
@@ -35,9 +35,10 @@
                     <DataGridTextColumn Header="PPT文件名"
                                         Binding="{Binding Converter={StaticResource dgRowToFileNameCov}}"/>
                 </DataGrid.Columns>
-
             </DataGrid>
         </GroupBox>
+        <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" Content="好差评算分" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Height="57" Width="156"/>
+        <TextBox x:Name="tb_Show" HorizontalAlignment="Left" Margin="10,228,0,0" TextWrapping="Wrap" Text="{Binding ScoreCa.Mes}" VerticalAlignment="Top" Width="390" Height="197" IsReadOnly="True"/>
 
     </Grid>
 </Window>

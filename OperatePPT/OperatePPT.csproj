@@ -6,12 +6,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+	  <BaseOutputPath>..\Output</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure.Controls\Infrastructure.Controls.csproj" />
     <ProjectReference Include="..\Infrastructure.Files\Infrastructure.Files.csproj" />
     <ProjectReference Include="..\PPTOperateLib\PPTOperateLib.csproj" />
+    <ProjectReference Include="..\ScoreCaculatorLib\ScoreCaculatorLib.csproj" />
   </ItemGroup>
 
 </Project>
