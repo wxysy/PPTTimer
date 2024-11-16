@@ -1,4 +1,5 @@
 
+using Data.Common.Serialize;
 using Infrastructure.Common.Commands;
 using ScoreCaculatorLib.Functions;
 using System.ComponentModel;
@@ -105,13 +106,16 @@ namespace ScoreCaculatorLib
                     scoreList = (t as List<(string Department, string ScoreType, double Score)>)!;
                 });
 
-                string[] departments =
-                ["大数据中心", "办公室", "政策和规划科", "数据资源科", "数字经济科", "数字科技和基础设施建设科", "数字政务与应用科",
-                "政务改革协调科","安全管理科", "投资服务科", "项目管理科", "审批服务一科", "审批服务二科", "政务服务科", "政务监督科",
-                "机关党委人事科", "机关纪委",];// 机关党委（人事科） 命名特别
+                //string[] departments =
+                //["大数据中心", "办公室", "政策和规划科", "数据资源科", "数字经济科", "数字科技和基础设施建设科", "数字政务与应用科",
+                //"政务改革协调科","安全管理科", "投资服务科", "项目管理科", "审批服务一科", "审批服务二科", "政务服务科", "政务监督科",
+                //"机关党委人事科", "机关纪委",];// 机关党委（人事科） 命名特别
 
                 //string[] departments = 
                 //["办公室", "数字科技和基础设施建设科", "机关纪委",];
+
+                string departmentNamePath = $@".\Settings\DepartmentNames.xml";
+                string[] departments = MyXmlSerialize.XmlDeserializeFromFile<string[]>(departmentNamePath) ?? [];
 
                 foreach (var dp in departments)
                 {

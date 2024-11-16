@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <string>大数据中心</string>
+  <string>办公室</string>
+  <string>政策和规划科</string>
+  <string>数据资源科</string>
+  <string>数字经济科</string>
+  <string>数字科技和基础设施建设科</string>
+  <string>数字政务与应用科</string>
+  <string>政务改革协调科</string>
+  <string>安全管理科</string>
+  <string>投资服务科</string>
+  <string>项目管理科</string>
+  <string>审批服务一科</string>
+  <string>审批服务二科</string>
+  <string>政务服务科</string>
+  <string>政务监督科</string>
+  <string>机关党委（人事科）</string>
+  <string>机关纪委</string>
+</ArrayOfString>
