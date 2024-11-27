@@ -7,7 +7,7 @@
         xmlns:localFunctions="clr-namespace:OperatePPT.Functions"
         xmlns:localViews="clr-namespace:Infrastructure.Controls.WPFControls;assembly=Infrastructure.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="PPT播放控制与评分计算V1.0" Height="450" Width="800">
     <Window.Resources>
         <ResourceDictionary>
             <localViews:DataGridIndexConverter x:Key="dgRowToIndexConverter"/>
@@ -37,7 +37,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
-        <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" Content="好差评算分" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Height="57" Width="156"/>
+        <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" Content="好差评算分" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Height="57" Width="156" FontSize="16"/>
         <TextBox x:Name="tb_Show" HorizontalAlignment="Left" Margin="10,228,0,0" TextWrapping="Wrap" Text="{Binding ScoreCa.Mes}" VerticalAlignment="Top" Width="390" Height="197" IsReadOnly="True"/>
 
     </Grid>
