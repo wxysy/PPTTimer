@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ScoreCaculatorLib.Functions
 {
     internal class ScoreHandler
-    {
+    {        
         /* ScoreType：
          * 1、A -- 局长 Head Leader
          * 2、B -- 分管领导 Charge Leader
