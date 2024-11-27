@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScoreCaculatorLib.Models
+namespace ScoreCaculatorLib.DataRule
 {
     public class RuleModel<T>
     {

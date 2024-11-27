@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using MiniExcelLibs.Attributes;
 
-namespace ScoreCaculatorLib.Models
+namespace ScoreCaculatorLib.DataRule
 {
     public class ScoreRecordModel
     {

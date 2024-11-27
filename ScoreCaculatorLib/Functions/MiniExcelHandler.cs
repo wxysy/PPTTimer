@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.ObjectModel;
-using ScoreCaculatorLib.Models;
+using ScoreCaculatorLib.DataRule;
 
 namespace ScoreCaculatorLib.Functions
 {

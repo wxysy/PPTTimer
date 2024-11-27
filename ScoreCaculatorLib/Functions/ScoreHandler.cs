@@ -1,5 +1,5 @@
 ﻿using Data.Common.Serialize;
-using ScoreCaculatorLib.Models;
+using ScoreCaculatorLib.DataRule;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;

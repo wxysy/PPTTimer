@@ -1,15 +1,14 @@
-﻿using ScoreCaculatorLib.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScoreCaculatorLib.Functions
+namespace ScoreCaculatorLib.DataRule
 {
-    internal class RuleHandler
+    public class RuleHandler
     {
-        internal static List<T> RuleRecordsNormal<T>(List<T> recordsOrig, List<RuleModel<T>> rules, IProgress<string>? progress = null)
+        public static List<T> RuleRecordsNormal<T>(List<T> recordsOrig, List<RuleModel<T>> rules, IProgress<string>? progress = null)
         {
 
             var activeRules = (from r in rules
