@@ -79,6 +79,7 @@ namespace OperatePPT
             {
                 IsActive = true,
                 RuleType = RuleType.Washing,
+                RuleName = "test规则",
                 WashingRule = l =>
                 {
                     var buffer = from t in l
