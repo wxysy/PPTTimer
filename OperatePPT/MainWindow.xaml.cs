@@ -1,8 +1,11 @@
 ﻿
+using Data.Washing.Handlers;
+using Data.Washing.Models;
 using Infrastructure.Files.FileCommon;
 using PPTOperateLib.CountDown;
 using PPTOperateLib.Play;
 using ScoreCaculatorLib;
+using ScoreCaculatorLib.DataRule;
 using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.IO;
@@ -65,19 +68,31 @@ namespace OperatePPT
             var selectPath = dataGrid.SelectedItem as string;
             if (File.Exists(selectPath))
                 PlayPPT(selectPath);
-            //Test();           
+
+            Test();
         }
 
         private void Test()
         {
-            var testPath = "D:\\Document\\Desktop\\20240924_工作情况汇报PPT\\test.pptx";
-            if (filePaths.Count == 0)
+            List<RuleModel<int>> rules = [];
+            rules.Add(new RuleModel<int>()
             {
-                filePaths.Add(testPath);
-                PlayPPT(filePaths[0]);
-            }
-            else
-            { }
+                IsActive = true,
+                RuleType = RuleType.Washing,
+                WashingRule = l =>
+                {
+                    var buffer = from t in l
+                                 where t > 2
+                                 select t;
+                    return (true, [.. buffer]);
+                },
+            });
+
+
+            int[] data = [1, 2, 3, 4, 5];
+
+            var res = DataWashingHandler.CommonHandler([.. data], rules, null);
+            MessageBox.Show($"清洗之后数量：{res.Count}");
         }
 
         private void PlayPPT(string pptPath)
