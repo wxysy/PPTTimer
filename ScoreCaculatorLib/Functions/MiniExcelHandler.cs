@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Collections.ObjectModel;
 using ScoreCaculatorLib.DataRule;
+using Data.Handler.Models;
+using Data.Handler.Commons;
 
 namespace ScoreCaculatorLib.Functions
 {
@@ -45,7 +47,22 @@ namespace ScoreCaculatorLib.Functions
                     pM?.Report($"读取页面“{sName}”记录：{i}条");
 
                     // 清洗页面数据
-                    var sheetRecords_Washed = ScoreHandler.WashingSheetRecords(sheetRecords_Input); //规则在ScoreHandler类中
+                    List<RuleModel<DpScoreRecordModel>> rules = [];
+                    rules.Add(new RuleModel<DpScoreRecordModel>()
+                    {
+                        IsActive = true,
+                        RuleType = RuleType.Washing,
+                        RuleName = "评分规则",
+                        WashingRule = datas =>
+                        {
+                            return (true, ScoreHandler.WashingRecordsRule(datas), default);
+                        },
+                    });
+                    var res = DataCommonHnadler.CommonWashing(sheetRecords_Input, rules, pM);
+                    var sheetRecords_Washed = res.DataHandled;
+
+
+                    //var sheetRecords_Washed = ScoreHandler.WashingRecordsRule(sheetRecords_Input); //规则在ScoreHandler类中
                     pM?.Report($"清洗后保留记录：{sheetRecords_Washed.Count}条");
 
                     // 获取所需数据

@@ -15,7 +15,7 @@ namespace Data.Handler.Commons
             var activeRules = (from r in dataRules
                                where r.IsActive == true && r.WashingRule != null && r.RuleType == RuleType.Washing
                                select r).ToArray();
-            progress?.Report($"本次激活的规则数量：{activeRules.Length}，即将开始清洗...");
+            progress?.Report($"本次数据处理，规则类型：清洗，激活数量：{activeRules.Length}，即将开始...");
 
             List<T> temp = dataOrig;
             foreach (var r in activeRules)
@@ -42,7 +42,7 @@ namespace Data.Handler.Commons
             var activeRules = (from r in dataRules
                                where r.IsActive == true && r.CheckingRule != null && r.RuleType == RuleType.Checking
                                select r).ToArray();
-            progress?.Report($"本次激活的规则数量：{activeRules.Length}，即将开始检测...");
+            progress?.Report($"本次数据处理，规则类型：检测，激活数量：{activeRules.Length}，即将开始...");
 
             foreach (var r in activeRules)
             {

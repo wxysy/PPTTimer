@@ -21,7 +21,7 @@ namespace ScoreCaculatorLib.Functions
         private static readonly string[] leaderLevels = ["A", "B", "C"];
         private static readonly string[] otherLevels = ["D", "E"];
 
-        internal static List<DpScoreRecordModel> WashingSheetRecords(List<DpScoreRecordModel> recordsOrig)
+        internal static List<DpScoreRecordModel> WashingRecordsRule(List<DpScoreRecordModel> recordsOrig)
         {
             // 清洗结果存储
             List<DpScoreRecordModel> recordsWashed = [];
