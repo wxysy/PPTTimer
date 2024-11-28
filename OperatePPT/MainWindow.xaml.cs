@@ -1,6 +1,6 @@
 ﻿
-using Data.Washing.Handlers;
-using Data.Washing.Models;
+using Data.Handler.Commons;
+using Data.Handler.Models;
 using Infrastructure.Files.FileCommon;
 using PPTOperateLib.CountDown;
 using PPTOperateLib.Play;
@@ -84,14 +84,14 @@ namespace OperatePPT
                     var buffer = from t in l
                                  where t > 2
                                  select t;
-                    return (true, [.. buffer]);
+                    return (true, [.. buffer], default);
                 },
             });
 
 
             int[] data = [1, 2, 3, 4, 5];
 
-            var res = DataWashingHandler.CommonHandler([.. data], rules, null);
+            var res = DataCommonHnadler.CommonWashing([.. data], rules, null);
             MessageBox.Show($"清洗之后数量：{res.DataHandled.Count}");
         }
 

@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Temp\" />
+    <Folder Include="Temps\" />
   </ItemGroup>
 
 </Project>

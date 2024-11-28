@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data.Common\Data.Common.csproj" />
-    <ProjectReference Include="..\Data.Washing\Data.Washing.csproj" />
+    <ProjectReference Include="..\Data.Handler\Data.Handler.csproj" />
     <ProjectReference Include="..\Infrastructure.Common\Infrastructure.Common.csproj" />
     <ProjectReference Include="..\Infrastructure.Files\Infrastructure.Files.csproj" />
   </ItemGroup>
