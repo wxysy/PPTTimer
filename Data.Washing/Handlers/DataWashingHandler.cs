@@ -9,7 +9,7 @@ namespace Data.Washing.Handlers
 {
     public class DataWashingHandler
     {
-        public static List<T> CommonHandler<T>(List<T> dataOrig, List<RuleModel<T>> dataRules, IProgress<string>? progress = null)
+        public static (bool IsSuccessHandled, List<T> DataHandled) CommonHandler<T>(List<T> dataOrig, List<RuleModel<T>> dataRules, IProgress<string>? progress = null)
         {
 
             var activeRules = (from r in dataRules
@@ -35,7 +35,7 @@ namespace Data.Washing.Handlers
                 else
                 {
                     progress?.Report($"规则“{r.RuleName}”清洗失败，准备输出中间结果...");
-                    return temp;
+                    return (false, temp);
                 }
             }
             progress?.Report($"所有规则清洗通过，即将开始检测...");
@@ -54,11 +54,11 @@ namespace Data.Washing.Handlers
                 else
                 {
                     progress?.Report($"规则“{r.RuleName}”检测失败，准备输出先前清洗结果...");
-                    return temp;
+                    return (false, temp);
                 }
             }
             progress?.Report($"所有规则检测通过，即将输出最终结果...");
-            return temp;
+            return (true, temp);
         }
     }
 }

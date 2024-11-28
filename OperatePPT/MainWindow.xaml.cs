@@ -92,7 +92,7 @@ namespace OperatePPT
             int[] data = [1, 2, 3, 4, 5];
 
             var res = DataWashingHandler.CommonHandler([.. data], rules, null);
-            MessageBox.Show($"清洗之后数量：{res.Count}");
+            MessageBox.Show($"清洗之后数量：{res.DataHandled.Count}");
         }
 
         private void PlayPPT(string pptPath)
