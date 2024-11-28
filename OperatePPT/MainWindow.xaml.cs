@@ -69,7 +69,7 @@ namespace OperatePPT
             if (File.Exists(selectPath))
                 PlayPPT(selectPath);
 
-            Test();
+            //Test();
         }
 
         private void Test()

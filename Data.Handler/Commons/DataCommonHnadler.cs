@@ -9,7 +9,7 @@ namespace Data.Handler.Commons
 {
     public class DataCommonHnadler
     {
-        public static (bool IsSuccessHandled, List<T> DataHandled, string ErrorRule, T? ErrorItem) CommonWashing<T>(List<T> dataOrig, List<RuleModel<T>> dataRules, IProgress<string>? progress = null)
+        public static (bool IsSuccessHandled, List<TItem> DataHandled, string ErrorRule, TItem? ErrorItem) CommonWashing<TItem>(List<TItem> dataOrig, List<RuleModel<TItem>> dataRules, IProgress<string>? progress = null)
         {
 
             var activeRules = (from r in dataRules
@@ -17,27 +17,27 @@ namespace Data.Handler.Commons
                                select r).ToArray();
             progress?.Report($"本次数据处理，规则类型：清洗，激活数量：{activeRules.Length}，即将开始...");
 
-            List<T> temp = dataOrig;
+            List<TItem> buffer = dataOrig;
             foreach (var r in activeRules)
             {
-                var wash = r.WashingRule!([.. temp]);
+                var wash = r.WashingRule!(buffer);
                 if (wash.Res)
                 {
-                    temp.Clear();
-                    temp = [.. wash.DataWashed];
+                    buffer.Clear();
+                    buffer = wash.DataWashed;
                     progress?.Report($"规则“{r.RuleName}”清洗通过，准备下一规则清洗...");
                 }
                 else
                 {
                     progress?.Report($"规则“{r.RuleName}”清洗失败，输出清洗过程记录和失败记录...");
-                    return (false, temp, r.RuleName, wash.ErrorItem);
+                    return (false, buffer, r.RuleName, wash.ErrorItem);
                 }
             }
             progress?.Report($"所有规则清洗通过，即将输出最终结果...");
-            return (true, temp, string.Empty, default);
+            return (true, buffer, string.Empty, default);
         }
 
-        public static (bool IsSuccessHandled, string ErrorRule, T? ErrorItem) CommonChecking<T>(List<T> dataOrig, List<RuleModel<T>> dataRules, IProgress<string>? progress = null)
+        public static (bool IsSuccessHandled, string ErrorRule, TItem? ErrorItem) CommonChecking<TItem>(List<TItem> dataOrig, List<RuleModel<TItem>> dataRules, IProgress<string>? progress = null)
         {
             var activeRules = (from r in dataRules
                                where r.IsActive == true && r.CheckingRule != null && r.RuleType == RuleType.Checking

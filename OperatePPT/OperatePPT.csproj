@@ -8,6 +8,7 @@
     <UseWPF>true</UseWPF>
 	  <BaseOutputPath>..\Output</BaseOutputPath>
 	  <Platforms>AnyCPU;x64</Platforms>
+	  <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>

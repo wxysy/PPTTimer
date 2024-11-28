@@ -7,7 +7,7 @@
         xmlns:localFunctions="clr-namespace:OperatePPT.Functions"
         xmlns:localViews="clr-namespace:Infrastructure.Controls.WPFControls;assembly=Infrastructure.Controls"
         mc:Ignorable="d"
-        Title="PPT播放控制与评分计算V1.0" Height="450" Width="800">
+        Title="PPT播放控制与评分计算V1.0" Height="450" Width="800" ResizeMode="NoResize">
     <Window.Resources>
         <ResourceDictionary>
             <localViews:DataGridIndexConverter x:Key="dgRowToIndexConverter"/>
@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        <Button x:Name="btn_Play" Content="【播放PPT】&#xD;&#xA;并启动计时器" HorizontalAlignment="Left" Margin="229,166,0,0" VerticalAlignment="Top" Height="57" Width="171" Click="Btn_Play_Click" FontSize="16"/>
+        <Button x:Name="btn_Play" Content="【播放PPT】&#xD;&#xA;并启动计时器" Margin="229,166,400,0" VerticalAlignment="Top" Height="57" Click="Btn_Play_Click" FontSize="16"/>
         <GroupBox x:Name="groupBox" Header="主要参数定" Margin="10,10,400,0" Height="151" VerticalAlignment="Top">
             <Grid>
                 <TextBox x:Name="tb_Path" Margin="119,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="50" IsReadOnly="True" Background="#FFF0F0F0"/>
@@ -38,7 +38,9 @@
             </DataGrid>
         </GroupBox>
         <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" Content="好差评算分" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Height="57" Width="156" FontSize="16"/>
-        <TextBox x:Name="tb_Show" HorizontalAlignment="Left" Margin="10,228,0,0" TextWrapping="Wrap" Text="{Binding ScoreCa.Mes}" VerticalAlignment="Top" Width="390" Height="197" IsReadOnly="True"/>
+        <GroupBox x:Name="groupBox2" Header="GroupBox" Margin="10,232,400,10">
+            <TextBox x:Name="tb_Show" TextWrapping="Wrap" Text="{Binding ScoreCa.Mes}" VerticalAlignment="Top" IsReadOnly="True" Height="169" VerticalScrollBarVisibility="Visible"/>
+        </GroupBox>
 
     </Grid>
 </Window>
