@@ -55,7 +55,7 @@ namespace ScoreCaculatorLib.Functions
                         RuleName = "评分规则",
                         WashingRule = datas =>
                         {
-                            return (true, ScoreHandler.WashingRecordsRule(datas), default);
+                            return (true, MiniExcelRules.WashingRecordsRule(datas), default);
                         },
                     });
                     var res = DataCommonHnadler.CommonWashing(sheetRecords_Input, rules, pM);
