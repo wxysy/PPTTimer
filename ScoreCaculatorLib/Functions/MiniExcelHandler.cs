@@ -44,7 +44,7 @@ namespace ScoreCaculatorLib.Functions
                         sheetRecords_Input.Add(p);
                         i++;
                     });
-                    pM?.Report($"--|读取页面“{sName}”记录：{i}条|");
+                    pM?.Report($"--|读取|读取页面“{sName}”记录：{i}条|");
 
                     // 清洗页面数据
                     List<RuleModel<DpScoreRecordModel>> rules = [];
@@ -63,7 +63,7 @@ namespace ScoreCaculatorLib.Functions
 
 
                     //var sheetRecords_Washed = ScoreHandler.WashingRecordsRule(sheetRecords_Input); //规则在ScoreHandler类中
-                    pM?.Report($"--|清洗后保留记录：{sheetRecords_Washed.Count}条|");
+                    pM?.Report($"--|清洗|保留记录：{sheetRecords_Washed.Count}条|");
 
                     // 获取所需数据
                     foreach (var item in sheetRecords_Washed)
@@ -74,7 +74,7 @@ namespace ScoreCaculatorLib.Functions
                         scoreList.Add((dpName, scoreType, score));
                     }
                 }
-                pM?.Report($"--|【总计】读取页面{sheetNames.Count}个，清洗后记录总条数：{scoreList.Count}条|");
+                pM?.Report($"|总计|读取页面：{sheetNames.Count}个，保留记录：{scoreList.Count}条|");
 
                 //《不支持从调度程序线程以外的线程对其 SourceCollection 进行的更改》
                 //https://blog.csdn.net/Until_youyf/article/details/102720112
@@ -86,7 +86,7 @@ namespace ScoreCaculatorLib.Functions
                     //}
                     callBack?.Invoke(scoreList);
                 });
-                pM?.Report("----数据读取完毕----");
+                pM?.Report("----完成数据读取----");
                 return true;
             });
 

@@ -28,7 +28,7 @@
             </Grid>
         </GroupBox>
         <GroupBox x:Name="groupBox1" Header="PPT播放列表" Margin="405,10,10,10">
-            <DataGrid x:Name="dataGrid" ItemsSource="{Binding DGItems}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <DataGrid x:Name="dataGrid" ItemsSource="{Binding DGItems}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="序号"
                                         Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource dgRowToIndexConverter}}"/>
@@ -39,7 +39,7 @@
         </GroupBox>
         <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" Content="好差评算分" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Height="57" Width="156" FontSize="16"/>
         <GroupBox x:Name="groupBox2" Header="信息显示" Margin="10,232,400,10">
-            <TextBox x:Name="tb_Show" Text="{Binding ScoreCa.Mes}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" MinHeight="165"/>
+            <TextBox x:Name="tb_Show" Text="{Binding ScoreCa.Mes}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" MinHeight="165" HorizontalScrollBarVisibility="Visible"/>
         </GroupBox>
 
     </Grid>

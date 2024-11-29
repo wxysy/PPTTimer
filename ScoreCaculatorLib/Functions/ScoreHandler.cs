@@ -27,20 +27,23 @@ namespace ScoreCaculatorLib.Functions
             List<DpScoreRecordModel> recordsWashed = [];
 
             /*【清洗条件】
-             * 1、非本时段录入
+             * 1、非本时段录入(只收集当天的投票)
              * 2、重复录入
              * 3、冒充领导
              */
 
-            //1、非本时段录入
-            //var dataBuffer = from r in recordsOrig
-            //                 where r.SubmissionTime > DateTime.Now - TimeSpan.FromDays(1)
-            //                 select r;
+            //1、非本时段录入(只收集当天的投票)
+            var date = (from r in recordsOrig
+                       orderby r.SubmissionTime descending
+                       select r).First().SubmissionTime.Date; //找出最近投票日期
+            var dataBuffer = (from r in recordsOrig
+                              where r.SubmissionTime.Date == date
+                              select r).ToList();
 
             //2、去除重复录入的，以最后录入的为准。（先按名称分组，再组内排序）
             //《linq分组再实现组内排序》https://blog.csdn.net/qq_39585172/article/details/107201634
             //《Linq分组后，再对分组后的每组进行内部排序，获取每组中的第一条记录》https://blog.csdn.net/zzhzhonghua/article/details/121206103
-            var dataBuffer2 = (from r in recordsOrig
+            var dataBuffer2 = (from r in dataBuffer
                                group r by r.Submitter into p  //先分组
                                select p.OrderByDescending(x => x.SubmissionTime).First()  //后组内降序排序
                               ).ToList();
