@@ -39,7 +39,7 @@
         </GroupBox>
         <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" Content="好差评算分" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Height="57" Width="156" FontSize="16"/>
         <GroupBox x:Name="groupBox2" Header="信息显示" Margin="10,232,400,10">
-            <TextBox x:Name="tb_Show" Text="{Binding ScoreCa.Mes}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" MinHeight="165" HorizontalScrollBarVisibility="Visible"/>
+            <TextBox x:Name="tb_Show" Text="{Binding ScoreCa.Mes}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" MinHeight="150" HorizontalScrollBarVisibility="Visible"/>
         </GroupBox>
 
     </Grid>

@@ -49,6 +49,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -218,13 +226,13 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:SetupApp"
+        "ProductName" = "8:PPT播放控制与评分计算"
         "ProductCode" = "8:{06797E39-8712-46E8-BCFC-5AC84B6F0841}"
-        "PackageCode" = "8:{0FB2B65D-EDC1-434D-8D80-70DE99AB929D}"
+        "PackageCode" = "8:{060BD6FA-3AAD-40BD-86B9-CD87D24D5469}"
         "UpgradeCode" = "8:{28F9224B-A5BB-464C-BF1F-DDB9623C3AB8}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
