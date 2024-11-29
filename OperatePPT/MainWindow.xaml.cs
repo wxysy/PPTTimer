@@ -69,31 +69,12 @@ namespace OperatePPT
             if (File.Exists(selectPath))
                 PlayPPT(selectPath);
 
-            //Test();
+            Test(); //测试用方法
         }
 
         private void Test()
         {
-            List<RuleModel<int>> rules = [];
-            rules.Add(new RuleModel<int>()
-            {
-                IsActive = true,
-                RuleType = RuleType.Washing,
-                RuleName = "test规则",
-                WashingRule = l =>
-                {
-                    var buffer = from t in l
-                                 where t > 2
-                                 select t;
-                    return (true, [.. buffer], default);
-                },
-            });
-
-
-            int[] data = [1, 2, 3, 4, 5];
-
-            var res = DataCommonHnadler.CommonWashing([.. data], rules, null);
-            MessageBox.Show($"清洗之后数量：{res.DataHandled.Count}");
+           
         }
 
         private void PlayPPT(string pptPath)

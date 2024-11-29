@@ -101,36 +101,44 @@ namespace ScoreCaculatorLib
                 scoreList.Clear();
                 scoreFinal.Clear();
 
-                await MiniExcelHandler.SingleToSingleExcelFileHandler6(progress, t =>
+                var readRes = await MiniExcelHandler.SingleToSingleExcelFileHandler6(progress, t =>
                 {
                     scoreList = (t as List<(string Department, string ScoreType, double Score)>)!;
                 });
 
-                //string[] departments =
-                //["大数据中心", "办公室", "政策和规划科", "数据资源科", "数字经济科", "数字科技和基础设施建设科", "数字政务与应用科",
-                //"政务改革协调科","安全管理科", "投资服务科", "项目管理科", "审批服务一科", "审批服务二科", "政务服务科", "政务监督科",
-                //"机关党委人事科", "机关纪委",];// 机关党委（人事科） 命名特别
-
-                //string[] departments = 
-                //["办公室", "数字科技和基础设施建设科", "机关纪委",];
-
-                string departmentNamePath = $@".\Settings\DepartmentNames.xml";
-                string[] departments = MyXmlSerialize.XmlDeserializeFromFile<string[]>(departmentNamePath) ?? [];
-
-                foreach (var dp in departments)
+                if (readRes == false)
                 {
-                    var res = ScoreHandler.ScoreCalculatorV2(scoreList, dp);
-                    progress.Report(res.ScoreInfo);
-                    scoreFinal.Add((dp, res.Score));
+                    progress.Report("未读取到评分信息");
                 }
-                var showList = scoreFinal.OrderByDescending(d => d.Score).ToList();
-
-                progress.Report($"----排个序----");
-                int i = 1;
-                foreach (var item in showList)
+                else
                 {
-                    progress.Report($"{i++}、{item.Department} -- {item.Score:f3}");
-                }
+                    //string[] departments =
+                    //["大数据中心", "办公室", "政策和规划科", "数据资源科", "数字经济科", "数字科技和基础设施建设科", "数字政务与应用科",
+                    //"政务改革协调科","安全管理科", "投资服务科", "项目管理科", "审批服务一科", "审批服务二科", "政务服务科", "政务监督科",
+                    //"机关党委人事科", "机关纪委",];// 机关党委（人事科） 命名特别
+
+                    //string[] departments = 
+                    //["办公室", "数字科技和基础设施建设科", "机关纪委",];
+
+                    string departmentNamePath = $@".\Settings\DepartmentNames.xml";
+                    string[] departments = MyXmlSerialize.XmlDeserializeFromFile<string[]>(departmentNamePath) ?? [];
+
+                    progress.Report($"----有效票数统计----");
+                    foreach (var dp in departments)
+                    {
+                        var res = ScoreHandler.ScoreCalculatorV2(scoreList, dp);
+                        progress.Report(res.ScoreInfo);
+                        scoreFinal.Add((dp, res.Score));
+                    }
+                    var showList = scoreFinal.OrderByDescending(d => d.Score).ToList();
+
+                    progress.Report($"----科室评分排序----");
+                    int i = 1;
+                    foreach (var item in showList)
+                    {
+                        progress.Report($"{i++}、{item.Department} -- {item.Score:f3}");
+                    }
+                }                
             }, cmdPara => true);
         }
         #endregion           
