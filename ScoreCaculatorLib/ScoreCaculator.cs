@@ -3,6 +3,8 @@ using Data.Common.Serialize;
 using Infrastructure.Common.Commands;
 using ScoreCaculatorLib.Functions;
 using System.ComponentModel;
+using System.IO;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -120,7 +122,8 @@ namespace ScoreCaculatorLib
                     //string[] departments = 
                     //["办公室", "数字科技和基础设施建设科", "机关纪委",];
 
-                    string departmentNamePath = $@".\Settings\DepartmentNames.xml";
+                    //string departmentNamePath = $@".\Settings\DepartmentNames.xml";
+                    string departmentNamePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + $@".\Settings\DepartmentNames.xml";
                     string[] departments = MyXmlSerialize.XmlDeserializeFromFile<string[]>(departmentNamePath) ?? [];
 
                     progress.Report($"----有效票数统计----");

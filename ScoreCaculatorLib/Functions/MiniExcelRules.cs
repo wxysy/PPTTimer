@@ -2,7 +2,9 @@
 using ScoreCaculatorLib.DataRule;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,7 +51,10 @@ namespace ScoreCaculatorLib.Functions
 
             //3、排除冒充领导的
             //string[] leaders = ["蓝色香巴拉", "一抹红", "上善若水", "李先伟", "gy", "三十六雨", "张性军"]; //李燕艳、朱红梅、宋敬美、李先伟、龚勇、杨建宏、张性军
-            string leaderNamePath = $@".\Settings\LeanerNames.xml";
+            //string leaderNamePath = $@".\Settings\LeanerNames.xml";
+            string leaderNamePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + $@".\Settings\LeanerNames.xml";
+
+
             //MyXmlSerialize.XmlSerializeToFile(leaders, leaderNamePath);
             string[] leaderNames = MyXmlSerialize.XmlDeserializeFromFile<string[]>(leaderNamePath) ?? [];
 

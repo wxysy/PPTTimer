@@ -61,7 +61,6 @@ namespace ScoreCaculatorLib.Functions
                     var res = DataCommonHnadler.CommonWashing(sheetRecords_Input, rules, pM);
                     var sheetRecords_Washed = res.DataHandled;
 
-
                     //var sheetRecords_Washed = ScoreHandler.WashingRecordsRule(sheetRecords_Input); //规则在ScoreHandler类中
                     pM?.Report($"--|清洗|保留记录：{sheetRecords_Washed.Count}条|");
 
