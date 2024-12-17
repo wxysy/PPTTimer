@@ -11,7 +11,8 @@
 >>|-- PPTOperateLib PPT操作WPF类库  
 >>>|-- CountDown    简化的倒计时模块  
 >>>|-- Play         PPT播放控制模块  
-
+# 系统需求
+必须为 Office2021 X64，并且不能同时安装别的Office软件（如wps）。
 
 # 【以下为原版本程序说明】
 # PPTTimer
