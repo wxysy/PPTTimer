@@ -22,7 +22,7 @@ namespace ScoreCaculatorLib.Functions
         private static readonly string[] leaderLevels = ["A", "B", "C"];
         private static readonly string[] otherLevels = ["D", "E"];
 
-        public static List<DpScoreRecordModel> WashingRecordsRule(List<DpScoreRecordModel> recordsOrig)
+        public static (bool Res, List<DpScoreRecordModel> DataWashed, DpScoreRecordModel? ErrorItem) WashingRecordsRule(List<DpScoreRecordModel> recordsOrig)
         {
             // 清洗结果存储
             List<DpScoreRecordModel> recordsWashed = [];
@@ -70,7 +70,12 @@ namespace ScoreCaculatorLib.Functions
             recordsWashed.AddRange(dataOthers);
 
             //4、输出
-            return recordsWashed;
+            return (true, recordsWashed, default);
+        }
+
+        public static (bool Res, DpScoreRecordModel? ErrorItem) CheckingRecordsRule(List<DpScoreRecordModel> recordsOrig)
+        {
+            return (true, default);
         }
     }
 }

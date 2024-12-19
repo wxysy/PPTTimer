@@ -52,17 +52,23 @@ namespace ScoreCaculatorLib.Functions
                     {
                         IsActive = true,
                         RuleType = RuleType.Washing,
-                        RuleName = "评分规则",
-                        WashingRule = datas =>
-                        {
-                            return (true, MiniExcelRules.WashingRecordsRule(datas), default);
-                        },
+                        RuleName = "【清洗】评分",
+                        WashingRule = datas => MiniExcelRules.WashingRecordsRule(datas),
                     });
-                    var res = DataCommonHnadler.CommonWashing(sheetRecords_Input, rules, pM);
-                    var sheetRecords_Washed = res.DataHandled;
+                    rules.Add(new RuleModel<DpScoreRecordModel>()
+                    {
+                        IsActive = true,
+                        RuleType = RuleType.Checking,
+                        RuleName = "【检测】评分",
+                        CheckingRule = datas => MiniExcelRules.CheckingRecordsRule(datas),
+                    });
+                    var resW = DataCommonHnadler.CommonWashing(sheetRecords_Input, rules, pM);// 通常都是“先清洗、后检测”
+                    var resC = DataCommonHnadler.CommonChecking(sheetRecords_Input, rules, pM);
+                    if (!(resW.IsSuccessHandled && resC.IsSuccessHandled))
+                        return false;
 
-                    //var sheetRecords_Washed = ScoreHandler.WashingRecordsRule(sheetRecords_Input); //规则在ScoreHandler类中
-                    pM?.Report($"--|清洗|保留记录：{sheetRecords_Washed.Count}条|");
+                    var sheetRecords_Washed = resW.DataHandled;
+                    pM?.Report($"--|清洗+检测|保留记录：{sheetRecords_Washed.Count}条|");
 
                     // 获取所需数据
                     foreach (var item in sheetRecords_Washed)
