@@ -21,16 +21,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Temp\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Settings\DepartmentNames.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Settings\LeanerNames.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Temp\" />
   </ItemGroup>
 
 </Project>

@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using ScoreCaculatorLib.DataRule;
 using Data.Handler.Models;
 using Data.Handler.Commons;
+using Data.Handler.CustomAttribute;
 
 namespace ScoreCaculatorLib.Functions
 {
@@ -50,16 +51,20 @@ namespace ScoreCaculatorLib.Functions
                     List<RuleModel<DpScoreRecordModel>> rules = [];
                     rules.Add(new RuleModel<DpScoreRecordModel>()
                     {
-                        IsActive = true,
-                        RuleType = RuleType.Washing,
-                        RuleName = "【清洗】评分",
+                        //获取自定义特性值
+                        IsActive = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, bool>(AttributeTargets.Method, nameof(MiniExcelRules.WashingRecordsRule), nameof(RuleAttribute.IsActive))!,
+                        RuleType = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, RuleType>(AttributeTargets.Method, nameof(MiniExcelRules.WashingRecordsRule), nameof(RuleAttribute.RuleType))!,
+                        RuleName = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, string>(AttributeTargets.Method, nameof(MiniExcelRules.WashingRecordsRule), nameof(RuleAttribute.RuleName))!,
+                        //有自定义特性的实际清洗方法
                         WashingRule = datas => MiniExcelRules.WashingRecordsRule(datas),
                     });
                     rules.Add(new RuleModel<DpScoreRecordModel>()
                     {
-                        IsActive = true,
-                        RuleType = RuleType.Checking,
-                        RuleName = "【检测】评分",
+                        //获取自定义特性值
+                        IsActive = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, bool>(AttributeTargets.Method, nameof(MiniExcelRules.CheckingRecordsRule), nameof(RuleAttribute.IsActive))!,
+                        RuleType = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, RuleType>(AttributeTargets.Method, nameof(MiniExcelRules.CheckingRecordsRule), nameof(RuleAttribute.RuleType))!,
+                        RuleName = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, string>(AttributeTargets.Method, nameof(MiniExcelRules.CheckingRecordsRule), nameof(RuleAttribute.RuleName))!,
+                        //有自定义特性的实际清洗方法
                         CheckingRule = datas => MiniExcelRules.CheckingRecordsRule(datas),
                     });
                     var resW = DataCommonHnadler.CommonWashing(sheetRecords_Input, rules, pM);// 通常都是“先清洗、后检测”

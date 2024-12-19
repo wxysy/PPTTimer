@@ -1,4 +1,5 @@
 ﻿using Data.Common.Serialize;
+using Data.Handler.Models;
 using ScoreCaculatorLib.DataRule;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace ScoreCaculatorLib.Functions
         private static readonly string[] leaderLevels = ["A", "B", "C"];
         private static readonly string[] otherLevels = ["D", "E"];
 
+        [Rule(IsActive = true, RuleName = "评分清洗", RuleType = RuleType.Washing)]
         public static (bool Res, List<DpScoreRecordModel> DataWashed, DpScoreRecordModel? ErrorItem) WashingRecordsRule(List<DpScoreRecordModel> recordsOrig)
         {
             // 清洗结果存储
@@ -73,6 +75,7 @@ namespace ScoreCaculatorLib.Functions
             return (true, recordsWashed, default);
         }
 
+        [Rule(IsActive = true, RuleName = "评分检测", RuleType = RuleType.Checking)]
         public static (bool Res, DpScoreRecordModel? ErrorItem) CheckingRecordsRule(List<DpScoreRecordModel> recordsOrig)
         {
             return (true, default);

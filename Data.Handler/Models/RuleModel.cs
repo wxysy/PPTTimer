@@ -14,9 +14,4 @@ namespace Data.Handler.Models
         public Func<List<TItem>, (bool Res, List<TItem> DataWashed, TItem? ErrorItem)>? WashingRule { get; set; } //清洗方法
         public Func<List<TItem>, (bool Res, TItem? ErrorItem)>? CheckingRule { get; set; } //检测方法
     }
-    public enum RuleType
-    {
-        Washing,
-        Checking,
-    }
 }
