@@ -1,0 +1,6 @@
+﻿更新详情
+[<版本号>--<详情>]
+1.0.0.0--实现基本功能
+1.1.0.0
+  |--自定义特性类CustomAttributeHanlder内方法统一。
+  |--Rule的自定义特性类改名字为RuleMetadata，并在同一文件中增加了读取Metadata的方法类。
