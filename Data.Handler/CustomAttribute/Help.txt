@@ -1,0 +1,23 @@
+﻿【怎么用】
+/****一、使用普通方法获取自定义特性信息。****/
+//--获取服务(TService)中的特性信息--
+var targetResideClassTypeTS = typeof(IMessageService);
+var res_Ver1 = CustomAttributeHanlder.GetPropertyInfo<DemoAttrAttribute, string>(targetResideClassTypeTS, AttributeTargets.Class, "IMessageService", "ServiceVersion");
+//--获取服务实现(TImplementation)中的特性信息--
+var targetResideClassTypeTI = typeof(MessageServiceImplement);
+var res_Ver2 = CustomAttributeHanlder.GetPropertyInfo<DemoAttrAttribute, string>(targetResideClassTypeTI, AttributeTargets.Class, "", "ServiceVersion"); //获取类自身信息
+var res_Ver3 = CustomAttributeHanlder.GetPropertyInfo<DemoAttrAttribute, string>(targetResideClassTypeTI, AttributeTargets.Class, "IShow", "ServiceVersion"); //获取广义子类信息（接口IShow在类中定义）
+tb_Show.Text += $"使用普通方法获取特性信息。\n服务类-IMessageService版本：{res_Ver1}\n服务实现类-MessageServiceImplement版本：{res_Ver2}\n服务实现类内部成员-IShow接口(广义子类)版本：{res_Ver3}\n\n";
+
+/****二、使用扩展方法获取特性信息[通过服务(TService)]。****/
+//**本方法返回为服务实现(TImplementation)实例。[只不过自动隐式引用转换为服务(TService)实例罢了]**
+var p21 = App.GetServiceImplementationInstance<IMessageService>();
+//--获取服务(TService)中的特性信息（仅AttributeTargets变化）--
+var r21 = p21?.GetAttributePropertyInfoExtend<IMessageService, DemoAttrAttribute, string>(AttributeTargets.Interface, "IMessageService", "ServiceVersion");//--> 1.0.0.0
+//--获取服务实现(TImplementation)中的特性信息（仅AttributeTargets变化）--
+var r22 = p21?.GetAttributePropertyInfoExtend<IMessageService, DemoAttrAttribute, string>(AttributeTargets.Class, "", "ServiceVersion");//--> 2.0.0.0        
+var r23 = p21?.GetAttributePropertyInfoExtend<IMessageService, DemoAttrAttribute, string>(AttributeTargets.Class, "IShow", "ServiceVersion");//--> 3.0.0.0           
+tb_Show.Text += $"使用扩展方法V1.3获取特性信息[通过服务(TService)]。\n服务类-IMessageService版本：{r21}\n服务实现类-MessageServiceImplement版本：{r22}\n服务实现类内部成员-IShow接口(广义子类)版本：{r23}\n\n";
+
+/****二、使用扩展方法获取特性信息[通过服务(TService)]。****/
+//这就是普通类的特性获取，看上一个例子“反射进阶-2_(.Net8)自定义特性定义、使用及通过反射获取指定对象的特性值”。
