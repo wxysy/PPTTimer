@@ -23,7 +23,7 @@ namespace ScoreCaculatorLib.Functions
         private static readonly string[] leaderLevels = ["A", "B", "C"];
         private static readonly string[] otherLevels = ["D", "E"];
 
-        [Rule(IsActive = true, RuleName = "评分清洗", RuleType = RuleType.Washing)]
+        [Rule(IsActive = true, RuleTitle = "评分清洗", RuleType = RuleType.Washing, RuleDescription = "无")]
         public static (bool Res, List<DpScoreRecordModel> DataWashed, DpScoreRecordModel? ErrorItem) WashingRecordsRule(List<DpScoreRecordModel> recordsOrig)
         {
             // 清洗结果存储
@@ -75,7 +75,7 @@ namespace ScoreCaculatorLib.Functions
             return (true, recordsWashed, default);
         }
 
-        [Rule(IsActive = true, RuleName = "评分检测", RuleType = RuleType.Checking)]
+        [Rule(IsActive = true, RuleTitle = "评分检测", RuleType = RuleType.Checking)]
         public static (bool Res, DpScoreRecordModel? ErrorItem) CheckingRecordsRule(List<DpScoreRecordModel> recordsOrig)
         {
             return (true, default);

@@ -25,12 +25,12 @@ namespace Data.Handler.Commons
                 {
                     buffer.Clear();
                     buffer = wash.DataWashed;
-                    progress?.Report($"------|规则“{r.RuleName}”清洗通过，准备下一规则清洗...|");
+                    progress?.Report($"------|规则“{r.RuleTitle}”清洗通过，准备下一规则清洗...|");
                 }
                 else
                 {
-                    progress?.Report($"----|规则“{r.RuleName}”清洗失败，输出清洗过程记录和失败记录...|");
-                    return (false, buffer, r.RuleName, wash.ErrorItem);
+                    progress?.Report($"----|规则“{r.RuleTitle}”清洗失败，输出清洗过程记录和失败记录...|");
+                    return (false, buffer, r.RuleTitle, wash.ErrorItem);
                 }
             }
             progress?.Report($"----|所有规则清洗通过，即将输出最终结果...|");
@@ -49,12 +49,12 @@ namespace Data.Handler.Commons
                 var check = r.CheckingRule!(dataOrig);
                 if (check.Res)
                 {
-                    progress?.Report($"------|规则“{r.RuleName}”检测通过，准备下一规则检测...|");
+                    progress?.Report($"------|规则“{r.RuleTitle}”检测通过，准备下一规则检测...|");
                 }
                 else
                 {
-                    progress?.Report($"----|规则“{r.RuleName}”检测失败，输出检测失败记录...|");
-                    return (false, r.RuleName, check.ErrorItem);
+                    progress?.Report($"----|规则“{r.RuleTitle}”检测失败，输出检测失败记录...|");
+                    return (false, r.RuleTitle, check.ErrorItem);
                 }
             }
             progress?.Report($"----|所有规则检测通过，即将输出最终结果...|");

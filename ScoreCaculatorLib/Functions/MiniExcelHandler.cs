@@ -49,21 +49,24 @@ namespace ScoreCaculatorLib.Functions
 
                     // 清洗页面数据
                     List<RuleModel<DpScoreRecordModel>> rules = [];
-                    rules.Add(new RuleModel<DpScoreRecordModel>()
+                    
+                    var washingMD = RuleMD.GetRuleMetadata<MiniExcelRules>(nameof(MiniExcelRules.WashingRecordsRule));// 获取方法元数据（自定义特性值）
+                    rules.Add(new RuleModel<DpScoreRecordModel>()// 添加方法
                     {
-                        //获取自定义特性值
-                        IsActive = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, bool>(AttributeTargets.Method, nameof(MiniExcelRules.WashingRecordsRule), nameof(RuleAttribute.IsActive))!,
-                        RuleType = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, RuleType>(AttributeTargets.Method, nameof(MiniExcelRules.WashingRecordsRule), nameof(RuleAttribute.RuleType))!,
-                        RuleName = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, string>(AttributeTargets.Method, nameof(MiniExcelRules.WashingRecordsRule), nameof(RuleAttribute.RuleName))!,
+                        //设定自定义特性值                       
+                        IsActive = washingMD.IsActive,
+                        RuleType = washingMD.RuleType,
+                        RuleTitle = washingMD.RuleTitle,
                         //有自定义特性的实际清洗方法
                         WashingRule = datas => MiniExcelRules.WashingRecordsRule(datas),
                     });
-                    rules.Add(new RuleModel<DpScoreRecordModel>()
+                    var checkingMD = RuleMD.GetRuleMetadata<MiniExcelRules>(nameof(MiniExcelRules.CheckingRecordsRule));// 获取方法元数据（自定义特性值）
+                    rules.Add(new RuleModel<DpScoreRecordModel>()// 添加方法
                     {
-                        //获取自定义特性值
-                        IsActive = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, bool>(AttributeTargets.Method, nameof(MiniExcelRules.CheckingRecordsRule), nameof(RuleAttribute.IsActive))!,
-                        RuleType = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, RuleType>(AttributeTargets.Method, nameof(MiniExcelRules.CheckingRecordsRule), nameof(RuleAttribute.RuleType))!,
-                        RuleName = GetCustomAttributeInfo.GetCustomAttributePropertyValue<MiniExcelRules, RuleAttribute, string>(AttributeTargets.Method, nameof(MiniExcelRules.CheckingRecordsRule), nameof(RuleAttribute.RuleName))!,
+                        //设定自定义特性值                       
+                        IsActive = checkingMD.IsActive,
+                        RuleType = checkingMD.RuleType,
+                        RuleTitle = checkingMD.RuleTitle,
                         //有自定义特性的实际清洗方法
                         CheckingRule = datas => MiniExcelRules.CheckingRecordsRule(datas),
                     });
