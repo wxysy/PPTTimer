@@ -18,10 +18,10 @@ namespace Data.Handler.Models
         public static (bool IsActive, RuleType RuleType, string RuleTitle, string RuleDescription) GetRuleMetadata<TRule>(string ruleMethodName)
             where TRule : class
         {
-            var isActive = GetCustomAttributeInfo.GetCustomAttributePropertyValue<TRule, RuleAttribute, bool>(AttributeTargets.Method, ruleMethodName, nameof(RuleAttribute.IsActive))!;
-            var ruleType = GetCustomAttributeInfo.GetCustomAttributePropertyValue<TRule, RuleAttribute, RuleType>(AttributeTargets.Method, ruleMethodName, nameof(RuleAttribute.RuleType))!;
-            var ruleName = GetCustomAttributeInfo.GetCustomAttributePropertyValue<TRule, RuleAttribute, string>(AttributeTargets.Method, ruleMethodName, nameof(RuleAttribute.RuleTitle))!;
-            var ruleDescription = GetCustomAttributeInfo.GetCustomAttributePropertyValue<TRule, RuleAttribute, string>(AttributeTargets.Method, ruleMethodName, nameof(RuleAttribute.RuleDescription))!;
+            var isActive = CustomAttributeHanlder.GetPropertyInfo<RuleAttribute, bool>(typeof(TRule), AttributeTargets.Method, ruleMethodName, nameof(RuleAttribute.IsActive))!;
+            var ruleType = CustomAttributeHanlder.GetPropertyInfo<RuleAttribute, RuleType>(typeof(TRule), AttributeTargets.Method, ruleMethodName, nameof(RuleAttribute.RuleType))!;
+            var ruleName = CustomAttributeHanlder.GetPropertyInfo<RuleAttribute, string>(typeof(TRule), AttributeTargets.Method, ruleMethodName, nameof(RuleAttribute.RuleTitle))!;
+            var ruleDescription = CustomAttributeHanlder.GetPropertyInfo<RuleAttribute, string>(typeof(TRule), AttributeTargets.Method, ruleMethodName, nameof(RuleAttribute.RuleDescription))!;
             return (isActive, ruleType, ruleName, ruleDescription);
         }
     }
