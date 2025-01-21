@@ -23,8 +23,8 @@ namespace ScoreCaculatorLib.Functions
         private static readonly string[] leaderLevels = ["A", "B", "C"];
         private static readonly string[] otherLevels = ["D", "E"];
 
-        [Rule(IsActive = false, RuleTitle = "评分清洗1", RuleType = RuleType.Washing, RuleDescription = "无")]
-        public static (bool Res, List<DpScoreRecordModel> DataWashed, DpScoreRecordModel? ErrorItem) WashingRecordsRule(List<DpScoreRecordModel> recordsOrig, object? state = null)
+        [Rule(IsActive = false, RuleTitle = "评分清洗1", RuleType = RuleType.Washing, RuleDescription = "无")] // 清洗记录是不存在什么成不成功的，最多把记录全清洗掉而已
+        public static List<DpScoreRecordModel> WashingRecordsRule1(List<DpScoreRecordModel> datasOrig, object? datasState = null) //参数datasState，用于表示处理数据需要的额外参数(例如时间)
         {
             // 清洗结果存储
             List<DpScoreRecordModel> recordsWashed = [];
@@ -36,11 +36,11 @@ namespace ScoreCaculatorLib.Functions
              */
 
             //1、非本时段录入(只收集开始时间之后的投票)
-            var date = (from r in recordsOrig
+            var date = (from r in datasOrig
                         orderby r.SubmissionTime descending
                         select r).First().SubmissionTime.Date; //找出最近投票日期
 
-            var dataBuffer = (from r in recordsOrig
+            var dataBuffer = (from r in datasOrig
                               where r.SubmissionTime.Date == date
                               select r).ToList();
 
@@ -73,11 +73,11 @@ namespace ScoreCaculatorLib.Functions
             recordsWashed.AddRange(dataOthers);
 
             //4、输出
-            return (true, recordsWashed, default);
+            return recordsWashed;
         }
-
-        [Rule(IsActive = true, RuleTitle = "评分清洗2", RuleType = RuleType.Washing, RuleDescription = "无")]
-        public static (bool Res, List<DpScoreRecordModel> DataWashed, DpScoreRecordModel? ErrorItem) WashingRecordsRule2(List<DpScoreRecordModel> recordsOrig, object? state = null)
+       
+        [Rule(IsActive = true, RuleTitle = "评分清洗2", RuleType = RuleType.Washing, RuleDescription = "无")] // 清洗记录是不存在什么成不成功的，最多把记录全清洗掉而已
+        public static List<DpScoreRecordModel> WashingRecordsRule2(List<DpScoreRecordModel> datasOrig, object? datasState = null) //参数datasState，用于表示处理数据需要的额外参数(例如时间)
         {
             // 清洗结果存储
             List<DpScoreRecordModel> recordsWashed = [];
@@ -88,8 +88,8 @@ namespace ScoreCaculatorLib.Functions
              */
 
             //1、非本时段录入(只收集开始时间之后的投票)
-            var startDT = (DateTime)state!;
-            var dataBuffer = (from r in recordsOrig
+            var startDT = (DateTime)datasState!;
+            var dataBuffer = (from r in datasOrig
                               where r.SubmissionTime >= startDT
                               select r).ToList();
 
@@ -113,11 +113,12 @@ namespace ScoreCaculatorLib.Functions
             }          
 
             //4、输出
-            return (true, recordsWashed, default);
+            return recordsWashed;
         }
 
-        [Rule(IsActive = true, RuleTitle = "评分检测", RuleType = RuleType.Checking)]
-        public static (bool Res, DpScoreRecordModel? ErrorItem) CheckingRecordsRule(List<DpScoreRecordModel> recordsOrig, object? state = null)
+        
+        [Rule(IsActive = true, RuleTitle = "评分检测", RuleType = RuleType.Checking)] // 检测记录是存在是否成功的
+        public static (bool Res, DpScoreRecordModel? ErrorItem) CheckingRecordsRule1(List<DpScoreRecordModel> datasOrig, object? datasState = null) //参数datasState，用于表示处理数据需要的额外参数(例如时间)
         {
             return (true, default);
         }

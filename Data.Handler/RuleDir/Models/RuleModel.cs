@@ -13,7 +13,7 @@ namespace Data.Handler.RuleDir.Models
         public required RuleType RuleType { get; set; } //规则类型
 
 
-        public Func<List<TItem>, (bool Res, List<TItem> DataWashed, TItem? ErrorItem)>? WashingRule { get; set; } //清洗方法
+        public Func<List<TItem>, List<TItem>>? WashingRule { get; set; } //清洗方法(清洗记录是不存在什么成不成功的，最多把记录全清洗掉而已)
         public Func<List<TItem>, (bool Res, TItem? ErrorItem)>? CheckingRule { get; set; } //检测方法
     }
 }

@@ -7,7 +7,7 @@
         xmlns:localFunctions="clr-namespace:OperatePPT.Functions"
         xmlns:localViews="clr-namespace:Infrastructure.Controls.WPFControls;assembly=Infrastructure.Controls"
         mc:Ignorable="d"
-        Title="PPT播放控制与评分计算V1.1" Height="600" Width="800" ResizeMode="NoResize">
+        Title="PPT播放控制与评分计算V1.2" Height="600" Width="800" ResizeMode="NoResize">
     <Window.Resources>
         <ResourceDictionary>
             <localViews:DataGridIndexConverter x:Key="dgRowToIndexConverter"/>

@@ -116,7 +116,7 @@ namespace ScoreCaculatorLib
                 else
                 { }
 
-                var readRes = await MiniExcelHandler.SingleToSingleExcelFileHandler7(timeOut, progress, t =>
+                var readRes = await MiniExcelHandler.SingleExcelFileReader(timeOut, progress, t =>
                 {
                     scoreList = (t as List<OutputRecordModel>)!;
                 });

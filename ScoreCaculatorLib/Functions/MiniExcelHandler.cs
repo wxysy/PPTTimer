@@ -20,11 +20,11 @@ namespace ScoreCaculatorLib.Functions
 {
     public class MiniExcelHandler
     {
-        public static Task<bool> SingleToSingleExcelFileHandler7(object? state, IProgress<string>? pM, Action<object>? callBack)
+        public static Task<bool> SingleExcelFileReader(object? state, IProgress<string>? pM, Action<object>? callBack)
         {
             Task<bool> myTask = new(s =>
             {
-                var indentStr_L1 = "--"; //设定缩进量
+                var indentStr_L1 = "    "; //设定缩进量
 
                 /*--1、从单个Excel文件读取数据--*/
                 var inputPath = MyFilePath.ReadFilePath(pM, "Excel文件|*.xlsx|");
@@ -35,40 +35,46 @@ namespace ScoreCaculatorLib.Functions
                 // 最终结果记录
                 List<OutputRecordModel> scoreList = [];
 
-                // 获取所有页面
+                // 获取所有页面数据
+                List<DpScoreRecordModel> totalRecords = [];
                 var sheetNames = MiniExcel.GetSheetNames(inputPath);
-
-                // 读取第1个页面数据
-                var sName = sheetNames[0];
-                List<DpScoreRecordModel> sheetRecords_Input = [];
-                int i = 0;
-                MiniExcelExtend.GeneralReadOnStrongType<DpScoreRecordModel>(inputPath, sName, p =>
+                int sIndex = 0;
+                foreach (var sName in sheetNames)
                 {
-                    sheetRecords_Input.Add(p);
-                    i++;
-                });
-                pM?.Report($"{indentStr_L1}|读取|读取页面“{sName}”记录：{i}条|");
+                    pM?.Report($"【读取】读取第{++sIndex}个页面");
+
+                    // 读取第i个页面数据
+                    //【注意】强烈建议sheetRecords只用于数据从Excel的读取，如果要进行数据处理，建议var data = sheetRecords。
+                    //否则sheetRecords_Input显示为0。
+                    List<DpScoreRecordModel> sheetRecords = [];
+                    int i = 0;
+                    MiniExcelExtend.GeneralReadOnStrongType<DpScoreRecordModel>(inputPath, sName, p =>
+                    {
+                        sheetRecords.Add(p);
+                        i++;
+                    });
+                    pM?.Report($"{indentStr_L1}【读取】读取页面“{sName}”记录：{i}条");
+
+                    // 页面数据加入总集合
+                    totalRecords.AddRange(sheetRecords);
+                }
 
                 // 清洗页面数据
                 List<RuleModel<DpScoreRecordModel>> rules = [];
-
-                RuleCommonHnadler.AddWashingRule<DpScoreRecordModel, MiniExcelRules>(rules, MiniExcelRules.WashingRecordsRule, s);
-
+                RuleCommonHnadler.AddWashingRule<DpScoreRecordModel, MiniExcelRules>(rules, MiniExcelRules.WashingRecordsRule1, s);
                 RuleCommonHnadler.AddWashingRule<DpScoreRecordModel, MiniExcelRules>(rules, MiniExcelRules.WashingRecordsRule2, s);               
+                RuleCommonHnadler.AddCheckingRule<DpScoreRecordModel, MiniExcelRules>(rules, MiniExcelRules.CheckingRecordsRule1, s);
 
-                RuleCommonHnadler.AddCheckingRule<DpScoreRecordModel, MiniExcelRules>(rules, MiniExcelRules.CheckingRecordsRule, s);
-
-                var resW = RuleCommonHnadler.CommonWashing(sheetRecords_Input, rules, pM);// 通常都是“先清洗、后检测”
-                var washingDatas = resW.DataHandled; //不能直接用sheetRecords_Input输入到CommonChecking，否则sheetRecords_Input显示为0。
-                var resC = RuleCommonHnadler.CommonChecking(washingDatas, rules, pM);
-                if (!(resW.IsSuccessHandled && resC.IsSuccessHandled))
+                var dataWashed = RuleCommonHnadler.CommonWashing(totalRecords, rules, pM);// 通常都是“先清洗、后检测”
+                var bufferWashed = dataWashed; 
+                var resC = RuleCommonHnadler.CommonChecking(dataWashed, rules, pM);
+                if (!resC.IsSuccessHandled)
                     return false;
-
-                var sheetRecords_Washed = washingDatas;
-                pM?.Report($"{indentStr_L1}|清洗+检测|保留记录：{sheetRecords_Washed.Count}条|");
+                var dataCleaned = dataWashed;
+                pM?.Report($"{indentStr_L1}【清洗+检测】干净记录：{dataCleaned.Count}条");
 
                 // 获取所需数据
-                foreach (var item in sheetRecords_Washed)
+                foreach (var item in dataCleaned)
                 {
                     var dpName = item.DepartmentName;
                     var scoreType = item.PersonType[..1];
@@ -84,7 +90,7 @@ namespace ScoreCaculatorLib.Functions
                     };
                     scoreList.Add(outRD);
                 }
-                pM?.Report($"{indentStr_L1}|总计|读取页面：{sheetNames.Count}个，保留记录：{scoreList.Count}条|");
+                pM?.Report($"【总计】读取页面：{sheetNames.Count}个，可用记录：{scoreList.Count}条");
 
                 //《不支持从调度程序线程以外的线程对其 SourceCollection 进行的更改》
                 //https://blog.csdn.net/Until_youyf/article/details/102720112
