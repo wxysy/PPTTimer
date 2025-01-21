@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.IO;
 using System.Text;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -31,10 +32,23 @@ namespace OperatePPT
         public ScoreCaculator ScoreCa { get; set; } = new();
         #endregion
 
+        System.Timers.Timer exitTimer;
+
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
+
+            exitTimer = new() { Interval = 100 };
+            exitTimer.Elapsed += ExitTimer_Elapsed;
+            exitTimer.Start();
+        }
+
+        private void ExitTimer_Elapsed(object? sender, ElapsedEventArgs e)
+        {
+            //if (pptPlay.IsPPTOpened != true)
+            //    if (timerWindow != null)
+            //        this.Dispatcher.Invoke(() => timerWindow?.Close());
         }
 
         private void SetParasToInitialState()
@@ -85,11 +99,6 @@ namespace OperatePPT
 
             PPTPlay pptPlay = new();
             CountDownWindow timerWindow = new(int.Parse(tb_CountDownSeconds.Text), int.Parse(tb_WarningSeconds.Text));
-            timerWindow.CountDownToZeroEvent += (sender, e) =>
-            {
-                pptPlay.PPTClose();//关闭PPT
-                this.Dispatcher.Invoke(() => e.Close());//计时器关闭            
-            };
 
             bool isInSlideShow = false;//PPT是否在放映模式
             timerWindow.AutoStartStopEvent += (sender, e) =>
@@ -113,7 +122,7 @@ namespace OperatePPT
                 }
                 else
                 {
-                    //e.Close();//反正只要加了e.Close()这一句就失去焦点
+                    //e.Close();//反正只要加了e.Close()这一句就失去焦点（不是失去焦点，而是IsPPTOpened变成了false）
                 }
             };
             timerWindow.Show();

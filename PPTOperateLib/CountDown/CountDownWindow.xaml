@@ -36,8 +36,14 @@
             <Grid ShowGridLines="False">
                 <!--左上角小图标-->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <!--png图片生成操作需改为：资源，否则图片不显示-->
                     <Image x:Name="icon" Source="/PPTOperateLib;component/CountDown/PPTTimer.png" 
                            Width="15" Height="15" HorizontalAlignment="Left" Margin="4,6.5,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" FlowDirection="RightToLeft">
+                    <!--png图片生成操作需改为：资源，否则图片不显示-->
+                    <Image x:Name="icon2" Source="/PPTOperateLib;component/CountDown/Pictures/exit.png" 
+                           Width="24" Height="24" HorizontalAlignment="Right" Panel.ZIndex="1" MouseLeftButtonDown="Icon2_MouseLeftButtonDown"/>
                 </StackPanel>
                 <!--计时数字显示-->
                 <TextBlock x:Name="time" Text="-00:00" VerticalAlignment="Center" HorizontalAlignment="Center" 

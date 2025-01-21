@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using OFFICECORE = Microsoft.Office.Core; //COM引用，Microsoft Office 16.0 Object Library。
 using POWERPOINT = Microsoft.Office.Interop.PowerPoint;//COM引用，Microsoft Powerpoint 16.0 Object Library。
 
@@ -91,7 +92,7 @@ namespace PPTOperateLib.Play
             {
                 objApp = new POWERPOINT.Application();
                 //以非只读方式打开,方便操作结束后保存.
-                objPresSet = objApp.Presentations.Open(filePath, OFFICECORE.MsoTriState.msoFalse, OFFICECORE.MsoTriState.msoFalse, OFFICECORE.MsoTriState.msoFalse);
+                objPresSet = objApp.Presentations.Open(filePath, OFFICECORE.MsoTriState.msoTrue, OFFICECORE.MsoTriState.msoTrue, OFFICECORE.MsoTriState.msoFalse);
                 //isAssistantOn = objApp.Assistant.On;//Prevent Office Assistant from displaying alert messages:
                 //objApp.Assistant.On = false;
 

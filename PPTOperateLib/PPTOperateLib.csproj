@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="CountDown\Pictures\exit.png" />
     <None Remove="CountDown\PPTTimer.png" />
   </ItemGroup>
 
@@ -35,11 +36,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CountDown\Pictures\" />
     <Folder Include="Temp\" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="CountDown\Pictures\exit.png" />
     <Resource Include="CountDown\PPTTimer.png" />
   </ItemGroup>
 

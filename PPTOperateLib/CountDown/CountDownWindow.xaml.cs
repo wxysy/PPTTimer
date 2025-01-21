@@ -228,6 +228,13 @@ namespace PPTOperateLib.CountDown
                 return s;
             }
         }
+
+        private void Icon2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var result = MessageBox.Show("退出计时器？", "退出", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+                this.Close();
+        }
         #endregion
 
         #region 启停计时器
