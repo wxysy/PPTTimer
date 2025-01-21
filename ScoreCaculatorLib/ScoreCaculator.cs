@@ -135,7 +135,7 @@ namespace ScoreCaculatorLib
                                        select p.OrderByDescending(x => x.SubmissionTime).First()  //后组内降序排序
                                       ).ToList();
 
-                    progress.Report($"\n----有效票数统计----"); //不加 \n 容易看花眼
+                    progress.Report($"\n----科室计算结果----"); //不加 \n 容易看花眼
                     foreach (var dp in departments)
                     {
                         var res = ScoreHandler.ScoreCalculatorV2(scoreList, dp.Department);
