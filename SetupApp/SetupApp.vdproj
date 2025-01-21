@@ -56,6 +56,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -227,15 +235,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:PPT播放控制与评分计算"
-        "ProductCode" = "8:{06797E39-8712-46E8-BCFC-5AC84B6F0841}"
-        "PackageCode" = "8:{060BD6FA-3AAD-40BD-86B9-CD87D24D5469}"
+        "ProductCode" = "8:{EC48EAD0-7E93-4D2F-B7AB-E111C1070DDF}"
+        "PackageCode" = "8:{025DCFB9-D9B9-4D9C-82BE-742F4B2A895C}"
         "UpgradeCode" = "8:{28F9224B-A5BB-464C-BF1F-DDB9623C3AB8}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.2.0"
         "Manufacturer" = "8:wxy"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -351,7 +359,7 @@
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_5C547ED0072E4F9AB21C4A59030DAA95"
             {
             "Name" = "8:卸载软件"
-            "Arguments" = "8:/X {06797E39-8712-46E8-BCFC-5AC84B6F0841}"
+            "Arguments" = "8:/X {EC48EAD0-7E93-4D2F-B7AB-E111C1070DDF}"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"

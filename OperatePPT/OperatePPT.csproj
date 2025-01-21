@@ -9,6 +9,7 @@
 	  <BaseOutputPath>..\Output</BaseOutputPath>
 	  <Platforms>AnyCPU;x64</Platforms>
 	  <PlatformTarget>x64</PlatformTarget>
+	  <AssemblyVersion>1.2.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
