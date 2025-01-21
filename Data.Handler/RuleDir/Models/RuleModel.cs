@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Handler.Models
+namespace Data.Handler.RuleDir.Models
 {
     public class RuleModel<TItem>
     {

@@ -1,5 +1,5 @@
 ﻿using Data.Common.Serialize;
-using Data.Handler.Models;
+using Data.Handler.RuleDir.Models;
 using ScoreCaculatorLib.DataRule;
 using System;
 using System.Collections.Generic;
@@ -23,22 +23,23 @@ namespace ScoreCaculatorLib.Functions
         private static readonly string[] leaderLevels = ["A", "B", "C"];
         private static readonly string[] otherLevels = ["D", "E"];
 
-        [Rule(IsActive = true, RuleTitle = "评分清洗", RuleType = RuleType.Washing, RuleDescription = "无")]
-        public static (bool Res, List<DpScoreRecordModel> DataWashed, DpScoreRecordModel? ErrorItem) WashingRecordsRule(List<DpScoreRecordModel> recordsOrig)
+        [Rule(IsActive = false, RuleTitle = "评分清洗1", RuleType = RuleType.Washing, RuleDescription = "无")]
+        public static (bool Res, List<DpScoreRecordModel> DataWashed, DpScoreRecordModel? ErrorItem) WashingRecordsRule(List<DpScoreRecordModel> recordsOrig, object? state = null)
         {
             // 清洗结果存储
             List<DpScoreRecordModel> recordsWashed = [];
 
             /*【清洗条件】
-             * 1、非本时段录入(只收集当天的投票)
+             * 1、非本时段录入(只收集开始时间之后的投票)
              * 2、重复录入
              * 3、冒充领导
              */
 
-            //1、非本时段录入(只收集当天的投票)
+            //1、非本时段录入(只收集开始时间之后的投票)
             var date = (from r in recordsOrig
                         orderby r.SubmissionTime descending
                         select r).First().SubmissionTime.Date; //找出最近投票日期
+
             var dataBuffer = (from r in recordsOrig
                               where r.SubmissionTime.Date == date
                               select r).ToList();
@@ -75,8 +76,48 @@ namespace ScoreCaculatorLib.Functions
             return (true, recordsWashed, default);
         }
 
+        [Rule(IsActive = true, RuleTitle = "评分清洗2", RuleType = RuleType.Washing, RuleDescription = "无")]
+        public static (bool Res, List<DpScoreRecordModel> DataWashed, DpScoreRecordModel? ErrorItem) WashingRecordsRule2(List<DpScoreRecordModel> recordsOrig, object? state = null)
+        {
+            // 清洗结果存储
+            List<DpScoreRecordModel> recordsWashed = [];
+
+            /*【清洗条件】
+             * 1、非本时段录入(只收集开始时间之后的投票)
+             * 2、单人重复录入(以最后一次投票为准)
+             */
+
+            //1、非本时段录入(只收集开始时间之后的投票)
+            var startDT = (DateTime)state!;
+            var dataBuffer = (from r in recordsOrig
+                              where r.SubmissionTime >= startDT
+                              select r).ToList();
+
+            //2、单人重复录入(以最后一次投票为准)
+            //2.1-先按部门分组
+            var dataGroups = (from r in dataBuffer
+                             group r by r.DepartmentName into p
+                             select p);
+
+            //2.2-部门分组中找出重复投票的
+            foreach (var g in dataGroups)
+            {
+                //《linq分组再实现组内排序》https://blog.csdn.net/qq_39585172/article/details/107201634
+                //《Linq分组后，再对分组后的每组进行内部排序，获取每组中的第一条记录》https://blog.csdn.net/zzhzhonghua/article/details/121206103
+                var recordsPerDP = (from r in g
+                                  group r by r.Submitter into p  //先分组
+                                  select p.OrderByDescending(x => x.SubmissionTime).First()  //后组内降序排序
+                                  ).ToList();
+                //3、添加至最终数据聚合
+                recordsWashed.AddRange(recordsPerDP);
+            }          
+
+            //4、输出
+            return (true, recordsWashed, default);
+        }
+
         [Rule(IsActive = true, RuleTitle = "评分检测", RuleType = RuleType.Checking)]
-        public static (bool Res, DpScoreRecordModel? ErrorItem) CheckingRecordsRule(List<DpScoreRecordModel> recordsOrig)
+        public static (bool Res, DpScoreRecordModel? ErrorItem) CheckingRecordsRule(List<DpScoreRecordModel> recordsOrig, object? state = null)
         {
             return (true, default);
         }

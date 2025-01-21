@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Handler.Models
+namespace Data.Handler.RuleDir.Models
 {
     public class RuleMD
     {
@@ -27,7 +27,7 @@ namespace Data.Handler.Models
     }
 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]//AllowMultiple、Inherited 一般可以不写。
-    public sealed class RuleAttribute : System.Attribute
+    public sealed class RuleAttribute : Attribute
     {
         /*【特性只是一种特殊的类】
          * 1、必须派生自：System.Attribute
@@ -42,9 +42,9 @@ namespace Data.Handler.Models
         public required RuleType RuleType { get; set; } //规则类型
         public string RuleDescription { get; set; } = ""; //规则描述
 
-        public RuleAttribute() 
+        public RuleAttribute()
         {
-        
+
         }
     }
 
@@ -52,5 +52,5 @@ namespace Data.Handler.Models
     {
         Washing,
         Checking,
-    }  
+    }
 }

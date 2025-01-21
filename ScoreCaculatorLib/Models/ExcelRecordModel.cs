@@ -82,6 +82,9 @@ namespace ScoreCaculatorLib.DataRule
         [ExcelColumnName("提交时间（自动）")]
         public DateTime SubmissionTime { get; set; }
 
+        [ExcelColumnName("您本次要评价的科室（必填）")]
+        public string DepartmentName { get; set; } = "";
+
         [ExcelColumnName("您的人员类型（必填）")]
         public string PersonType { get; set; } = "";
 

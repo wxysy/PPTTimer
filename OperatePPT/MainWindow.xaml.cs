@@ -1,7 +1,4 @@
-﻿
-using Data.Handler.Commons;
-using Data.Handler.Models;
-using Infrastructure.Files.FileCommon;
+﻿using Infrastructure.Files.FileCommon;
 using PPTOperateLib.CountDown;
 using PPTOperateLib.Play;
 using ScoreCaculatorLib;
@@ -122,6 +119,11 @@ namespace OperatePPT
             timerWindow.Show();
 
             pptPlay.PPTOpen(pptPath);
+        }
+
+        private void Tb_Show_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            tb_Show.ScrollToEnd();
         }
     }
 }

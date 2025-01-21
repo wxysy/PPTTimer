@@ -1,5 +1,6 @@
 ﻿using Data.Common.Serialize;
 using ScoreCaculatorLib.DataRule;
+using ScoreCaculatorLib.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
@@ -11,14 +12,20 @@ namespace ScoreCaculatorLib.Functions
 {
     internal class ScoreHandler
     {        
-        internal static (double Score, string ScoreInfo) ScoreCalculatorV2(List<(string Department, string ScoreType, double Score)> scoreList, string departmentName)
+        internal static (double Score, string ScoreInfo) ScoreCalculatorV2(List<OutputRecordModel> scoreList, string departmentName)
         {
             //0、数据筛选
-            var scoreListSelected = scoreList.Where(s => s.Score >= 60 && s.Score < 100).ToList(); //打分不超过99分，不能低于60分。
+            var scoreListSelected = (from s in scoreList
+                                     where s.Score >= 60 && s.Score < 100 //打分不超过99分，不能低于60分。
+                                     where s.Department == departmentName
+                                     select s).ToList();
 
             //1、计算I类分（去掉一个最高分，去掉一个最低分，多个最高/最低分只去除一个）
+            int rMin = 3;
+            if(scoreListSelected.Count < rMin)
+                return (0, $"{departmentName}，票数少于{rMin}票，无法计算。");
+
             var scoreArray = (from p in scoreListSelected
-                              where p.Department == departmentName
                               orderby p.Score //打分从低到高进行排序
                               select p).ToArray();
             List<double> inputI = [];
@@ -30,7 +37,7 @@ namespace ScoreCaculatorLib.Functions
 
             //2、计算II类分（5个副职领导单算）
             var inputII = (from s in scoreListSelected
-                           where s.ScoreType == "B" && s.Department == departmentName
+                           where s.ScoreType == "B"
                            select s.Score).ToList();
             var scoreII = inputII.Count > 0 ? inputII.Average() : 0;
 

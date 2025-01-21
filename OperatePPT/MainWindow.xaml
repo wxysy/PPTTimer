@@ -7,7 +7,7 @@
         xmlns:localFunctions="clr-namespace:OperatePPT.Functions"
         xmlns:localViews="clr-namespace:Infrastructure.Controls.WPFControls;assembly=Infrastructure.Controls"
         mc:Ignorable="d"
-        Title="PPT播放控制与评分计算V1.0" Height="450" Width="800" ResizeMode="NoResize">
+        Title="PPT播放控制与评分计算V1.1" Height="600" Width="800" ResizeMode="NoResize">
     <Window.Resources>
         <ResourceDictionary>
             <localViews:DataGridIndexConverter x:Key="dgRowToIndexConverter"/>
@@ -22,8 +22,8 @@
                 <Label x:Name="label" Content="PPT文件夹路径" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Width="104"/>
                 <Label x:Name="label1" Content="倒计时时长(s)" HorizontalAlignment="Left" Margin="25,65,0,0" VerticalAlignment="Top" Width="89" HorizontalContentAlignment="Right"/>
                 <Label x:Name="label2" Content="提醒时长(s)" HorizontalAlignment="Left" Margin="25,95,0,0" VerticalAlignment="Top" Width="89" HorizontalContentAlignment="Right"/>
-                <TextBox x:Name="tb_CountDownSeconds" HorizontalAlignment="Left" Margin="119,65,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="89" Height="25" VerticalContentAlignment="Center"/>
-                <TextBox x:Name="tb_WarningSeconds" HorizontalAlignment="Left" Margin="119,95,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="89" Height="25" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="tb_CountDownSeconds" HorizontalAlignment="Left" Margin="119,65,0,0" TextWrapping="Wrap" Text="360" VerticalAlignment="Top" Width="89" Height="25" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="tb_WarningSeconds" HorizontalAlignment="Left" Margin="119,95,0,0" TextWrapping="Wrap" Text="60" VerticalAlignment="Top" Width="89" Height="25" VerticalContentAlignment="Center"/>
                 <Button x:Name="btn_SetFolder" Content="设定PPT文件夹路径" Margin="213,65,10,0" VerticalAlignment="Top" Height="55" Click="Btn_SetFolder_Click"/>
             </Grid>
         </GroupBox>
@@ -37,10 +37,12 @@
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
-        <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" Content="好差评算分" HorizontalAlignment="Left" Margin="10,166,0,0" VerticalAlignment="Top" Height="57" Width="156" FontSize="16"/>
-        <GroupBox x:Name="groupBox2" Header="信息显示" Margin="10,232,400,10">
-            <TextBox x:Name="tb_Show" Text="{Binding ScoreCa.Mes}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" MinHeight="150" HorizontalScrollBarVisibility="Visible"/>
+        <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" CommandParameter="{Binding Text, ElementName=tb_StartTime}" Content="好差评算分" Margin="229,235,400,0" VerticalAlignment="Top" Height="57" FontSize="16"/>
+        <GroupBox x:Name="groupBox2" Header="信息显示" Margin="10,292,400,10">
+            <TextBox x:Name="tb_Show" Text="{Binding ScoreCa.Mes}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" MinHeight="150" HorizontalScrollBarVisibility="Visible" Height="236" TextChanged="Tb_Show_TextChanged"/>
         </GroupBox>
+        <TextBox x:Name="tb_StartTime" HorizontalAlignment="Left" Margin="129,238,0,0" TextWrapping="Wrap" Text="08:10" VerticalAlignment="Top" Width="76" Height="24" VerticalContentAlignment="Center" FontSize="16" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label3" Content="开始统计时间" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" FontSize="16"/>
 
     </Grid>
 </Window>
