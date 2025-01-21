@@ -32,23 +32,10 @@ namespace OperatePPT
         public ScoreCaculator ScoreCa { get; set; } = new();
         #endregion
 
-        System.Timers.Timer exitTimer;
-
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
-
-            exitTimer = new() { Interval = 100 };
-            exitTimer.Elapsed += ExitTimer_Elapsed;
-            exitTimer.Start();
-        }
-
-        private void ExitTimer_Elapsed(object? sender, ElapsedEventArgs e)
-        {
-            //if (pptPlay.IsPPTOpened != true)
-            //    if (timerWindow != null)
-            //        this.Dispatcher.Invoke(() => timerWindow?.Close());
         }
 
         private void SetParasToInitialState()
@@ -99,31 +86,30 @@ namespace OperatePPT
 
             PPTPlay pptPlay = new();
             CountDownWindow timerWindow = new(int.Parse(tb_CountDownSeconds.Text), int.Parse(tb_WarningSeconds.Text));
+            timerWindow.CountDownToZeroEvent += (sender, e) =>
+            {
+                pptPlay.PPTClose();//关闭PPT
+                this.Dispatcher.Invoke(() => e.Close());//计时器关闭            
+            };
 
             bool isInSlideShow = false;//PPT是否在放映模式
             timerWindow.AutoStartStopEvent += (sender, e) =>
             {
-                var isPPTRunning = pptPlay.IsPPTOpened;
-                if (isPPTRunning) //反正没有这个判断就失去焦点
+                var isInSlideShowNow = pptPlay.IsInSlideShowMode;
+                if (isInSlideShow != isInSlideShowNow)
                 {
-
-                    var isInSlideShowNow = pptPlay.IsInSlideShowMode;
-                    if (isInSlideShow != isInSlideShowNow)
+                    isInSlideShow = isInSlideShowNow;
+                    e.StartAndStop();
+                    if (isInSlideShowNow == false) //isInSlideShowNow:true --> false, 说明PPT放完了
                     {
-                        isInSlideShow = isInSlideShowNow;
-                        e.StartAndStop();
-                        if (isInSlideShowNow == false) //true --> false, 说明PPT放完了
-                        {
+                        if (timerWindow.IsCounting == true) //必须额外加这个条件，否则会频繁触发e.RaiseCountDownToZeroEvent();
                             e.RaiseCountDownToZeroEvent();
-                        }
                     }
                     else
                     { }
                 }
                 else
-                {
-                    //e.Close();//反正只要加了e.Close()这一句就失去焦点（不是失去焦点，而是IsPPTOpened变成了false）
-                }
+                { }
             };
             timerWindow.Show();
 

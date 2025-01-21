@@ -106,7 +106,7 @@ namespace PPTOperateLib.CountDown
 
         #region 主计时器-控制计时
         public string starttime = "", nowtime = "";
-        public bool isCounting = false;//记录是否处于开始计时状态
+        public bool IsCounting { get; private set; } = false;//记录是否处于开始计时状态
         public double change = 0;
         private double times = 0;
 
@@ -114,7 +114,7 @@ namespace PPTOperateLib.CountDown
         {
             LoadingParas(countDownSeconds, warningSeconds);
             countDownToZeroEventHandled = false;
-            if (isCounting)
+            if (IsCounting)
                 mainTimer?.Stop();
             times = 0;
             change = 0;
@@ -123,12 +123,12 @@ namespace PPTOperateLib.CountDown
         }
         public void StartAndStop()
         {
-            if (!isCounting)
+            if (!IsCounting)
             {
                 starttime = DateTime.Now.ToLongTimeString();
                 mainTimer?.Start();
                 time.Opacity = 1.0;
-                isCounting = true;
+                IsCounting = true;
             }
             else
             {
@@ -138,7 +138,7 @@ namespace PPTOperateLib.CountDown
 
                 time.Opacity = 0.6;
                 TimeDisplay(string.Empty, defaulttime - change);
-                isCounting = false;
+                IsCounting = false;
             }
         }
 
