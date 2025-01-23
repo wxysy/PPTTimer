@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows;
 using OFFICECORE = Microsoft.Office.Core; //COM引用，Microsoft Office 16.0 Object Library。
 using POWERPOINT = Microsoft.Office.Interop.PowerPoint;//COM引用，Microsoft Powerpoint 16.0 Object Library。
 
@@ -27,7 +28,7 @@ namespace PPTOperateLib.Play
 
         #region 属性和变量
         System.Timers.Timer timer;
-        POWERPOINT.Application? objApp;
+        public POWERPOINT.Application? objApp;
         POWERPOINT.Presentation? objPresSet;
         POWERPOINT.SlideShowWindows? objSSWs;
         POWERPOINT.SlideShowTransition? objSST;
@@ -39,10 +40,12 @@ namespace PPTOperateLib.Play
         //double offsetx = 0;
         //double offsety = 0;
 
-        public bool IsPPTOpened { get; private set; } = false;
         public bool IsInSlideShowMode { get; private set; } = false;//是否在放映模式
         public int PPTSlideNow { get; private set; } = 0;
         public int PPTTotalSlides { get; private set; } = 0;
+
+        public event EventHandler? CloseTimerEvent;//关闭计时器事件
+        public void RaiseCloseTimerEvent() => CloseTimerEvent?.Invoke(this, EventArgs.Empty);
         #endregion
 
         public PPTPlay()
@@ -58,7 +61,6 @@ namespace PPTOperateLib.Play
             {
                 if (objPresSet == null)
                 {
-                    IsPPTOpened = false;
                     IsInSlideShowMode = false;
                     return;
                 }
@@ -70,7 +72,6 @@ namespace PPTOperateLib.Play
             }
             catch (Exception)
             {
-                IsPPTOpened = false;
                 IsInSlideShowMode = false;
             }
             
@@ -99,7 +100,6 @@ namespace PPTOperateLib.Play
                 objSSS = objPresSet.SlideShowSettings;
                 objSSS.Run();
 
-                IsPPTOpened = true;
                 IsInSlideShowMode = true;
                 PPTTotalSlides = objPresSet.Slides.Count;
                 PPTSlideNow = 1;
@@ -218,7 +218,6 @@ namespace PPTOperateLib.Play
             catch (Exception)
             { }
 
-            IsPPTOpened = false;
             IsInSlideShowMode = false;
         }
         #endregion

@@ -26,6 +26,7 @@ namespace Data.Handler.RuleDir.Commons
                 IsActive = washingMD.IsActive,
                 RuleType = washingMD.RuleType,
                 RuleTitle = washingMD.RuleTitle,
+                RuleDescription = washingMD.RuleDescription,
                 //有自定义特性的实际清洗方法
                 WashingRule = datas => ruleFunc(datas, datasState),
             });
@@ -46,6 +47,7 @@ namespace Data.Handler.RuleDir.Commons
                 IsActive = checkingMD.IsActive,
                 RuleType = checkingMD.RuleType,
                 RuleTitle = checkingMD.RuleTitle,
+                RuleDescription= checkingMD.RuleDescription,
                 //有自定义特性的实际清洗方法
                 CheckingRule = datas => ruleFunc(datas, datasState),
             });
@@ -70,6 +72,8 @@ namespace Data.Handler.RuleDir.Commons
             int rIndex = 0;
             foreach (var r in activeRules)
             {
+                if (string.IsNullOrEmpty(r.RuleDescription) != true)
+                    progress?.Report($"{indentStr_L3}规则“{r.RuleTitle}”用途：{r.RuleDescription}");
                 var dataWashed = r.WashingRule!(buffer);
                 buffer.Clear();
                 buffer = dataWashed;
@@ -99,6 +103,8 @@ namespace Data.Handler.RuleDir.Commons
             foreach (var r in activeRules)
             {
                 ++rIndex;
+                if (string.IsNullOrEmpty(r.RuleDescription) != true)
+                    progress?.Report($"{indentStr_L3}规则“{r.RuleTitle}”用途：{r.RuleDescription}");
                 var check = r.CheckingRule!(buffer);
                 if (check.Res)
                 {

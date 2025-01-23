@@ -83,7 +83,6 @@ namespace OperatePPT
             //https://www.cnblogs.com/CSSZBB/p/12016152.html
             //《WPF 让窗口激活作为前台最上层窗口的方法》
             //https://blog.csdn.net/lindexi_gd/article/details/105684558
-
             PPTPlay pptPlay = new();
             CountDownWindow timerWindow = new(int.Parse(tb_CountDownSeconds.Text), int.Parse(tb_WarningSeconds.Text));
             timerWindow.CountDownToZeroEvent += (sender, e) =>
@@ -91,6 +90,8 @@ namespace OperatePPT
                 pptPlay.PPTClose();//关闭PPT
                 this.Dispatcher.Invoke(() => e.Close());//计时器关闭            
             };
+
+
 
             bool isInSlideShow = false;//PPT是否在放映模式
             timerWindow.AutoStartStopEvent += (sender, e) =>

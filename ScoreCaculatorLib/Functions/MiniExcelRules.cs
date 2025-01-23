@@ -76,7 +76,7 @@ namespace ScoreCaculatorLib.Functions
             return recordsWashed;
         }
        
-        [Rule(IsActive = true, RuleTitle = "评分清洗2", RuleType = RuleType.Washing, RuleDescription = "无")] // 清洗记录是不存在什么成不成功的，最多把记录全清洗掉而已
+        [Rule(IsActive = true, RuleTitle = "评分清洗2", RuleType = RuleType.Washing, RuleDescription = "清洗掉非设定时段录入和重复录入数据")] // 清洗记录是不存在什么成不成功的，最多把记录全清洗掉而已
         public static List<DpScoreRecordModel> WashingRecordsRule2(List<DpScoreRecordModel> datasOrig, object? datasState = null) //参数datasState，用于表示处理数据需要的额外参数(例如时间)
         {
             // 清洗结果存储
