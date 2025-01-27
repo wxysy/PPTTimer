@@ -70,7 +70,7 @@ namespace ScoreCaculatorLib.DataRule
 
     }
 
-    public class DpScoreRecordModel
+    public record DpScoreRecordModel
     {
         static readonly string[] departments =
            ["大数据中心", "办公室", "政策和规划科", "数据资源科", "数字经济科", "数字科技和基础设施建设科", "数字政务与应用科", "政务改革协调科",

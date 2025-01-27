@@ -107,7 +107,7 @@ namespace ScoreCaculatorLib
 
                 //获取起算时间
                 var timeStr = cmdPara as string;
-                var timeRes = DateTime.TryParseExact(timeStr, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeOut);
+                var timeRes = DateTime.TryParseExact(timeStr, "yyyy/MM/ddTHH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeOut);
                 if (timeRes == false)
                 {
                     progress.Report("开始时间未正确设定！");

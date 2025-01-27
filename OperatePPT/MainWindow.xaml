@@ -37,11 +37,11 @@
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
-        <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" CommandParameter="{Binding Text, ElementName=tb_StartTime}" Content="好差评算分" Margin="229,235,400,0" VerticalAlignment="Top" Height="57" FontSize="16"/>
+        <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" CommandParameter="{Binding Text, ElementName=tb_StartTime}" Content="好差评算分" Margin="280,235,400,0" VerticalAlignment="Top" Height="57" FontSize="16"/>
         <GroupBox x:Name="groupBox2" Header="信息显示" Margin="10,292,400,10">
             <TextBox x:Name="tb_Show" Text="{Binding ScoreCa.Mes}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" MinHeight="150" HorizontalScrollBarVisibility="Visible" Height="236" TextChanged="Tb_Show_TextChanged"/>
         </GroupBox>
-        <TextBox x:Name="tb_StartTime" HorizontalAlignment="Left" Margin="129,238,0,0" TextWrapping="Wrap" Text="15:01" VerticalAlignment="Top" Width="76" Height="24" VerticalContentAlignment="Center" FontSize="16" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="tb_StartTime" HorizontalAlignment="Left" Margin="121,238,0,0" TextWrapping="Wrap" Text="2025/01/24T15:01" VerticalAlignment="Top" Width="154" Height="24" VerticalContentAlignment="Center" FontSize="16" HorizontalContentAlignment="Center"/>
         <Label x:Name="label3" Content="开始统计时间" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" FontSize="16"/>
 
     </Grid>
