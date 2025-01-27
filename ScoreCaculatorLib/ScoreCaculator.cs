@@ -1,12 +1,8 @@
-
-using Data.Common.Serialize;
 using Infrastructure.Common.Commands;
 using ScoreCaculatorLib.Functions;
 using ScoreCaculatorLib.Models;
 using System.ComponentModel;
 using System.Globalization;
-using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -105,18 +101,21 @@ namespace ScoreCaculatorLib
                 scoreList.Clear();
                 scoreFinal.Clear();
 
-                //获取起算时间
+                //获取起算时间               
                 var timeStr = cmdPara as string;
-                var timeRes = DateTime.TryParseExact(timeStr, "yyyy/MM/ddTHH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeOut);
-                if (timeRes == false)
+                var startStr = timeStr[..(timeStr.Length / 2)];
+                var endStr = timeStr[(timeStr.Length / 2)..];
+                var timeResStart = DateTime.TryParseExact(startStr, "yyyy/MM/ddTHH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeStart);
+                var timeResEnd = DateTime.TryParseExact(endStr, "yyyy/MM/ddTHH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeEnd);
+                if (timeResStart == false || timeResEnd == false)
                 {
                     progress.Report("开始时间未正确设定！");
                     return;
                 }
                 else
                 { }
-
-                var readRes = await MiniExcelHandler.SingleExcelFileReader(timeOut, progress, t =>
+                DateTime[] dTime = [timeStart, timeEnd];
+                var readRes = await MiniExcelHandler.SingleExcelFileReader(dTime, progress, t =>
                 {
                     scoreList = (t as List<OutputRecordModel>)!;
                 });
@@ -145,7 +144,7 @@ namespace ScoreCaculatorLib
                     var showList = scoreFinal.OrderByDescending(d => d.Score).ToList();
 
                     progress.Report($"\n----科室评分排序----");
-                    progress.Report($"评分日期：{timeOut}");
+                    progress.Report($"评分日期：{timeStart}");
                     int i = 1;
                     foreach (var item in showList)
                     {

@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <localViews:DataGridIndexConverter x:Key="dgRowToIndexConverter"/>
             <localFunctions:DGRowCov x:Key="dgRowToFileNameCov"/>
+            <local:TimeMultiValueConverter x:Key="timeCov"/>
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
@@ -37,12 +38,23 @@
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
-        <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" CommandParameter="{Binding Text, ElementName=tb_StartTime}" Content="好差评算分" Margin="280,235,400,0" VerticalAlignment="Top" Height="57" FontSize="16"/>
+        <Button x:Name="btn_CaculateScore" Command="{Binding ScoreCa.StartCMD}" Content="好差评算分" Margin="280,235,400,0" VerticalAlignment="Top" Height="57" FontSize="16">
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource ResourceKey=timeCov}">
+                    <MultiBinding.Bindings>
+                        <Binding Path="Text" ElementName="tb_StartTime"/>
+                        <Binding Path="Text" ElementName="tb_EndTime"/>
+                    </MultiBinding.Bindings>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
         <GroupBox x:Name="groupBox2" Header="信息显示" Margin="10,292,400,10">
             <TextBox x:Name="tb_Show" Text="{Binding ScoreCa.Mes}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" MinHeight="150" HorizontalScrollBarVisibility="Visible" Height="236" TextChanged="Tb_Show_TextChanged"/>
         </GroupBox>
         <TextBox x:Name="tb_StartTime" HorizontalAlignment="Left" Margin="121,238,0,0" TextWrapping="Wrap" Text="2025/01/24T15:01" VerticalAlignment="Top" Width="154" Height="24" VerticalContentAlignment="Center" FontSize="16" HorizontalContentAlignment="Center"/>
         <Label x:Name="label3" Content="开始统计时间" HorizontalAlignment="Left" Margin="10,235,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="tb_EndTime" HorizontalAlignment="Left" Margin="121,270,0,0" TextWrapping="Wrap" Text="2025/01/24T19:01" VerticalAlignment="Top" Width="154" Height="24" VerticalContentAlignment="Center" FontSize="16" HorizontalContentAlignment="Center"/>
+        <Label x:Name="label4" Content="结束统计时间" HorizontalAlignment="Left" Margin="10,267,0,0" VerticalAlignment="Top" FontSize="16"/>
 
     </Grid>
 </Window>

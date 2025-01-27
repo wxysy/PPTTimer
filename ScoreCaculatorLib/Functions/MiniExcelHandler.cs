@@ -120,7 +120,7 @@ namespace ScoreCaculatorLib.Functions
         private static bool SaveCleanedDatas(string inputOrigPath, List<DpScoreRecordModel> datas, object? datasState)
         {
             //获取开始时间
-            var startDT = (DateTime)datasState!;
+            var startDT = ((DateTime[])datasState!)[0];
             var startDTStr = $"{startDT:yyyyMMdd_HHmm}";
 
             //新的存储文件名称

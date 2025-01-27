@@ -5,6 +5,7 @@ using ScoreCaculatorLib;
 using ScoreCaculatorLib.DataRule;
 using System.Collections.ObjectModel;
 using System.Data.Common;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Timers;
@@ -122,4 +123,18 @@ namespace OperatePPT
             tb_Show.ScrollToEnd();
         }
     }
+
+    public class TimeMultiValueConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            return $"{values[0]}{values[1]}";
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }
