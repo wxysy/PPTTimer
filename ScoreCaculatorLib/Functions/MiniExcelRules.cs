@@ -88,10 +88,9 @@ namespace ScoreCaculatorLib.Functions
              */
 
             //1、非本时段录入(只收集开始时间之后的投票)
-            var startDT = ((DateTime[])datasState!)[0];
-            var endDT = ((DateTime[])datasState)[1];
+            var startDT = (DateTime)datasState!;
             var dataBuffer = (from r in datasOrig
-                              where r.SubmissionTime >= startDT && r.SubmissionTime <= endDT
+                              where r.SubmissionTime >= startDT
                               select r).ToList();
 
             //2、单人重复录入(以最后一次投票为准)

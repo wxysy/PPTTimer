@@ -1,4 +1,13 @@
-﻿using ScoreCaculatorLib.Models;
+﻿using Data.Common.Serialize;
+using Microsoft.VisualBasic;
+using ScoreCaculatorLib.DataRule;
+using ScoreCaculatorLib.Models;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ScoreCaculatorLib.Functions
 {
